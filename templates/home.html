@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block head %}
+    <title>Home</title>
+    <link rel="stylesheet" href="{{ url_for("static", filename="css/home.css") }}">
+{% endblock %}
+{% block navbar %}
+    <div class="navbar-spacer"></div>
+    <div class="center-navbar">
+        <a href="/data-import"><button class="navbar-buttons">Create Dashboard</button></a>
+        <a href="#"><button class="navbar-buttons">Cost Estimation</button></a>
+    </div>
+    <div class="right-navbar">
+        <span>{{ user["email"] }}</span>
+        <a href="/"><button class="navbar-buttons logout-btn">Logout</button></a>
+    </div>
+{% endblock %}
+{% block content %}
+    <form method="post">
+    <ul>
+        <h2>Projects</h2>
+        {% if projects %}
+            {% for project in projects %}
+                <input type="submit" name="project_button" value="{{ project }}"><br>
+            {% endfor %}
+        {% endif %}
+    </ul>
+    </form>
+{% endblock %}

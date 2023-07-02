@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block head %}
+    <title>Data Import</title>
+    <link rel="stylesheet" href="{{ url_for("static", filename="css/import_data.css") }}">
+{% endblock %}
+
+{% block navbar %}
+    <div class="left-navbar">
+        <a href="/home"><button class="navbar-buttons">Home</button></a>
+    </div>
+    <div class="right-navbar">
+        <span>{{ user["email"] }}</span>
+        <a href="/"><button class="navbar-buttons logout-btn">Logout</button></a>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <div class="instructions-container">
+
+        <div class="instructions-card make-card">
+            <h2>Some quick instructions...</h2>
+            <p>Just a couple of prerequisites to get started:</p>
+            <ul>
+                <li>Data uploaded must contain the <b>required fields<sup>*</sup></b>as listed below.</li>
+                <li>Please be sure to <b>remove all styling,</b> additional headers, etc.</li>
+            </ul>
+        </div>
+
+    </div>
+
+    <div class="upload-form-container">
+
+        <div class="form-content-container">
+            <h2>Import Data</h2>
+            <p>Upload an excel or csv file.</p>
+            <form method="post" enctype=multipart/form-data>
+                <input type="file" name="file" class="file-input"><br>
+                <input type="submit" value="Upload" class="upload-btn">
+            </form>
+
+            <div class="message">
+                {% if message %}
+                    {{ message }}
+                {% endif %}
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

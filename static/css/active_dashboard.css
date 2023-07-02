@@ -1,0 +1,152 @@
+.navbar{
+    display: flex;
+    width: 100vw;
+    height: 6vh;
+    justify-content: space-between;
+}
+
+.right-navbar{
+    justify-content: end;
+}
+
+.nav-dashboard-name{
+    font-size: 20px;
+    font-weight: bold;
+}
+.action-bar{
+    /*border: red solid 2px;*/
+    display: flex;
+    flex-direction: column;
+    height: 85vh;
+    width: 10vw;
+    background-color: #909090;
+}
+
+.action-btn{
+    width: 10vw;
+    background-color: #858585;
+    font-size: 16px;
+    color: #c7c7c7;
+    text-align: center;
+    padding: 5px 10px 5px 10px;
+    border: none;
+}
+
+.action-btn:hover{
+    background-color: #6e6e6e;
+    color: white;
+}
+
+.main-dashboard{
+    display: flex;
+    flex-direction: column;
+    width: 80vw;
+    height: 85vh;
+}
+
+.top-row{
+    display: flex;
+    width: 80vw;
+    height: 40vh;
+    /*border: crimson solid 3px;*/
+}
+
+.details-container{
+    display: flex;
+    flex-direction: column;
+    height: 40vh;
+    margin-left: 30px;
+    width: 30vw;
+    /*border: crimson solid 3px;*/
+}
+
+.sales-graph-container{
+    display: flex;
+    flex-direction: column;
+    height: 40vh;
+    width: 50vw;
+    margin-left: 15px;
+}
+
+.sales-graph-container h3{
+    height: 2vh;
+}
+
+.line-chart{
+    height: 38vh;
+    width: 50vw;
+    /*border: orange solid 3px;*/
+}
+
+.bottom-row{
+    display: flex;
+    width: 80vw;
+    height: 43vh;
+    /*justify-content: space-between;*/
+    /*border: crimson solid 3px;*/
+}
+
+.table-preview-container{
+    display: none;
+    flex-direction: column;
+    width: 47vw;
+    height: 43vh;
+    /*border: crimson solid 3px;*/
+    /*justify-content: center;*/
+    margin-left: 15px;
+    /*padding: 0;*/
+    /*margin: 0;*/
+}
+
+.table-preview-container h3{
+    height: 1vh;
+}
+
+.table-container{
+    overflow-x: scroll;
+    height: 42vh;
+}
+
+.table{
+    width: 200vw;
+    box-shadow: #7d7d7d -5px 0 10px;
+    height: 42vh;
+    /*padding: 0;*/
+    /*margin: 0;*/
+}
+
+.bar-chart-container{
+    display: flex;
+    flex-direction: column;
+    width: 46vw;
+    height: 43vh;
+    margin-left: 30px;
+    /*border: purple solid 3px;*/
+}
+
+.bar-chart-container h3{
+    height: 1vh;
+}
+.bar-chart{
+    height: 42vh;
+    width: 46vw;
+    /*border: crimson solid 3px;*/
+}
+
+.ml-chart{
+    height: 35vh;
+}
+
+.summary-stats{
+    display: flex;
+    height: 15vh;
+}
+
+.anomaly-container{
+    display: none;
+    flex-direction: column;
+    background-color: white;
+    align-self: center;
+
+}
+

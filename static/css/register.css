@@ -1,0 +1,16 @@
+.register-container{
+    align-self: center;
+    margin: 0 auto 20vh auto;
+    align-content: center;
+    display: flex;
+    flex-direction: column;
+    color: #7a7a7a;
+    padding: 0 30px 20px 30px;
+}
+
+
+input{
+    margin-top: 5px;
+    margin-bottom: 15px;
+    font-size: 16px;
+}

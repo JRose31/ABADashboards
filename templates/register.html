@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block head %}
+    <title>Register</title>
+    <link rel="stylesheet" href="{{ url_for("static", filename="css/register.css") }}">
+{% endblock %}
+{% block navbar %}
+<a href="/"><button class="navbar-buttons">Back</button></a>
+{% endblock %}
+{% block content %}
+    <div class="register-container make-card">
+        <h3>Create an account.</h3>
+        <form method="post">
+        <label for="user-email">Provide a valid email:</label><br>
+        <input type="text" name="user-email" placeholder="example@learningn.com"><br>
+        <label for="user-pwd">Enter a 8-16 character password:</label><br>
+        <input type="password" name="user-pwd" placeholder="Password"><br>
+        <input type="submit" value="Register">
+        {{ message }}
+        </form>
+    </div>
+{% endblock %}

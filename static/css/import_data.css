@@ -1,0 +1,53 @@
+.navbar{
+    display: flex;
+    width: 100vw;
+    height: 6vh;
+    justify-content: space-between;
+}
+.right-navbar{
+    justify-content: end;
+}
+
+.content{
+    height: 65vh;
+}
+.instructions-container{
+    display: flex;
+    width: 55vw;
+    justify-content: center;
+    align-items: center;
+}
+
+.instructions-card{
+    height: fit-content;
+    line-height: 34px;
+    padding: 5px 30px 15px 15px;
+}
+
+
+.upload-form-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 45vw;
+}
+
+.form-content-container{
+    /*margin-right: 10vw;*/
+    margin-bottom: 15vh;
+}
+
+.file-input{
+    margin-top: 10px;
+}
+
+.upload-btn{
+    margin-top: 15px;
+}
+
+.message{
+    margin-top: 5px;
+    font-size: 12px;
+    color: crimson;
+    font-style: italic;
+}

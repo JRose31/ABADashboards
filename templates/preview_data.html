@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+{% block head %}
+    <title>Title</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
+    <link rel="stylesheet" href="{{ url_for("static", filename="css/preview_data.css") }}">
+{% endblock %}
+{% block navbar %}
+        <div class="username">
+            {{ user["email"] }}
+        </div>
+        <a href="/"><button class="navbar-buttons">Logout</button></a>
+{% endblock %}
+{% block content %}
+        <div class="preview-options">
+            <h3>We're ready to map your data!</h3>
+            <div class="form-container make-card" id="form-container">
+                <form action="" method="post" class="dashboard-form">
+                    <input name="data-title" type="text" class="data-title" placeholder="Give your data a name...">
+                    <div class="selection-row">
+                        Select your <b>Date</b> column:
+                        <select name="date-column" id="">
+                            {% for field in data["fields"] %}
+                                <option value="{{ field }}">{{ field }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="selection-row">
+                        Select your <b>Sales</b> column:
+                        <select name="sales-column" id="">
+                            {% for field in data["fields"] %}
+                                <option value="{{ field }}">{{ field }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="selection-row">
+                        Select your <b>Costs</b> column:
+                        <select name="costs-column" id="">
+                            {% for field in data["fields"] %}
+                                <option value="{{ field }}">{{ field }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="selection-row">
+                        Select your <b>Labor</b> column:
+                        <select name="labor-column" id="">
+                            {% for field in data["fields"] %}
+                                <option value="{{ field }}">{{ field }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="selection-row">
+                        Select your <b>Materials</b> column:
+                        <select name="materials-column" id="">
+                            {% for field in data["fields"] %}
+                                <option value="{{ field }}">{{ field }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="selection-row">
+                        Select your <b>Percent Profit</b> column:
+                        <select name="perc-profit-column" id="">
+                            {% for field in data["fields"] %}
+                                <option value="{{ field }}">{{ field }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="btn-container">
+                        <input type="submit" name="submit-btn" value="Save & Analyze" class="action-btn analyze-btn">
+                        <input type="submit" name="submit-btn" value="Save Only" class="action-btn save-only-btn">
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="table-preview-container">
+            <div class="table-container">
+                <div class="table" id="table">
+                </div>
+            </div>
+        </div>
+
+<script>
+    var table = {{table | safe}};
+    Plotly.plot('table',table,{});
+    {#function replace( hide, show ) {#}
+    {#  document.getElementById(hide).style.display="none";#}
+    {#  document.getElementById(show).style.display="flex";#}
+    {# }
+    {##}
+</script>
+{% endblock %}

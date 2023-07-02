@@ -1,0 +1,12 @@
+.navbar{
+    display: flex;
+    width: 100vw;
+    height: 6vh;
+    justify-content: space-between;
+}
+
+.right-navbar{
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
