@@ -24,13 +24,13 @@
                 {% for project in projects %}
                     <div class="thumbnail-container">
                         <button class="thumbnail-btn" type="submit" name="project_button" value="{{ project }}">
-                            <img src="{{ url_for("static", filename="site_images/project_thumbnail.png") }}" alt="submit" width="80px"/>
+                            <img src="{{ url_for("static", filename="site_images/project_thumbnail.png") }}" alt="submit" width="70px"/>
                         </button>
                         <div class="project-details-container">
                             <h3 class="thumbnail-label">{{ project }}</h3>
                             <h4 class="detail-rows">Dashboard last updated: <span class="project-load-date">DATE</span></h4>
                             <div class="main-action-btns">
-                                <button class="project-options view-btn">View</button>
+                                <button class="project-options view-btn" type="submit" name="project_button" value="{{ project }}">View</button>
                                 <button class="project-options edit-btn">Edit</button>
                                 <button class="project-options remove-btn">Remove</button>
                             </div>

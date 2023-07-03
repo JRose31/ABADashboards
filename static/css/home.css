@@ -13,26 +13,31 @@
 
 .content{
     justify-content: center;
+    /*align-items: center;*/
     /*border: red solid 2px;*/
+    height: max-content;
+    margin-top: 20px;
     width: 90vw;
 }
 
 .projects-container{
     /*width: 50vw;*/
-    /*height: 80vh;*/
+    height: max-content;
     display: flex;
     flex-direction: column;
     padding-left: 25px;
+    border-bottom: rgba(179,179,179,0.57) solid 1px;
+    padding-bottom: 10px;
     /*border: blue solid 2px;*/
 
 }
 
 .quick-data-add-container{
     /*width: 50vw;*/
-    /*height: 80vh;*/
+    height: max-content;
     display: flex;
     flex-direction: column;
-    padding-left: 25px;
+    padding-left: 50px;
     /*border: orange solid 2px;*/
 }
 
@@ -47,7 +52,8 @@
 
 .thumbnail-container{
     display: flex;
-    margin-bottom: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
 }
 
 .project-details-container{
@@ -72,13 +78,18 @@
 
 .thumbnail-btn{
     background-color: white;
-    border: none;
+    border-radius: 50px;
+    border: solid 2px transparent;
+}
+
+.thumbnail-btn img{
+    padding: 5px;
 }
 
 .thumbnail-btn:hover{
     cursor: pointer;
     border: #4D87F4 solid 2px;
-    border-radius: 5px;
+    border-radius: 15px;
     box-shadow: #6D6D6D 2px 2px 5px;
 }
 
@@ -89,12 +100,12 @@
 }
 
 .project-options{
-    margin-right: 5px;
+    margin-right: 10px;
     border: none;
     padding: 5px 10px 5px 10px;
     border-radius: 2px;
-    background-color: #636363;
-    color: #858585;
+    background-color: #7a7a7a;
+    color: #a7a7a7;
 }
 
 .view-btn:hover{
