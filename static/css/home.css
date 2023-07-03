@@ -10,3 +10,105 @@
     justify-content: end;
     align-items: center;
 }
+
+.content{
+    justify-content: center;
+    /*border: red solid 2px;*/
+    width: 90vw;
+}
+
+.projects-container{
+    /*width: 50vw;*/
+    /*height: 80vh;*/
+    display: flex;
+    flex-direction: column;
+    padding-left: 25px;
+    /*border: blue solid 2px;*/
+
+}
+
+.quick-data-add-container{
+    /*width: 50vw;*/
+    /*height: 80vh;*/
+    display: flex;
+    flex-direction: column;
+    padding-left: 25px;
+    /*border: orange solid 2px;*/
+}
+
+.project-thumbnail-form{
+    display: flex;
+    flex-direction: column;
+    width: 40vw;
+    height: 60vh;
+    overflow-y: scroll;
+    /*border: solid red 1px;*/
+}
+
+.thumbnail-container{
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.project-details-container{
+    display: flex;
+    flex-direction: column;
+    margin-left: 15px;
+}
+
+.detail-rows{
+    margin: 0;
+    padding: 0;
+}
+
+.project-load-date{
+    font-weight: lighter;
+}
+
+.thumbnail-label{
+    padding: 0;
+    margin: 0 0 2px 0;
+}
+
+.thumbnail-btn{
+    background-color: white;
+    border: none;
+}
+
+.thumbnail-btn:hover{
+    cursor: pointer;
+    border: #4D87F4 solid 2px;
+    border-radius: 5px;
+    box-shadow: #6D6D6D 2px 2px 5px;
+}
+
+.main-action-btns{
+    display: flex;
+    width: 100%;
+    margin-top: 2px;
+}
+
+.project-options{
+    margin-right: 5px;
+    border: none;
+    padding: 5px 10px 5px 10px;
+    border-radius: 2px;
+    background-color: #636363;
+    color: #858585;
+}
+
+.view-btn:hover{
+    background-color: #4D87F4;
+    color: white;
+}
+
+.edit-btn:hover{
+    background-color: #6D6D6D;
+    color: white;
+}
+
+.remove-btn:hover{
+    background-color: #cb655f;
+    color: white;
+}
+

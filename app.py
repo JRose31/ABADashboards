@@ -115,6 +115,32 @@ def createDataTable(user_id, table_name, table_obj, dates, costs, sales, labor, 
     db.session.commit()
 
 
+def save_only():
+    data = session.get("preview_dataframe")
+    user = session.get("account")
+
+    pandas_df = data["dataframe"]
+    costs = data["dashboard_config"]["fields"]["costs_field"]
+    labor = data["dashboard_config"]["fields"]["labor_field"]
+    materials = data["dashboard_config"]["fields"]["materials_field"]
+    sales = data["dashboard_config"]["fields"]["sales_field"]
+    dates = data["dashboard_config"]["fields"]["date_field"]
+    perc_profit = data["dashboard_config"]["fields"]["perc_profit_field"]
+
+    table_name = data["dashboard_config"]["project_name"]
+    cleaned_name = str(user["user_id"]) + '_' + table_name.replace(" ", "_")
+
+    createDataTable(user_id=user["user_id"],
+                    table_name=cleaned_name,
+                    table_obj=pandas_df,
+                    dates=dates,
+                    costs=costs,
+                    sales=sales,
+                    labor=labor,
+                    materials=materials,
+                    perc_profit_col=perc_profit)
+
+
 @app.route('/create_db', methods=["GET"])
 def create_db():
     db.create_all()
@@ -129,6 +155,7 @@ def create_db():
 def view_db():
     schema = db.metadata.tables.keys()
     return f"{schema}"
+
 
 @app.route('/', methods=["GET", "POST"])
 def login():
@@ -177,7 +204,11 @@ def register():
 def home():
     user_info = session.get("account")
     if request.method == "POST":
-        table_name = request.form["project_button"]
+        print("Here")
+        for k, v in request.form.items():
+            print(k, ": ", v)
+        table_name = request.form.get("project_button")
+        print(table_name)
         db_row = UserTables.query.filter_by(user_id=user_info["user_id"], table_name=table_name).first()
         print(db_row)
         json_obj = db_row.data
@@ -247,7 +278,9 @@ def preview_data():
         action = request.form["submit-btn"]
         if action == "Save & Analyze":
             return redirect("/active-dashboard", code=307)
-        return redirect('/home')
+        else:
+            save_only()
+            return redirect('/home')
     data = session.get("preview_dataframe")
     username = session.get("account")
     preview_dataframe = data["dataframe"]

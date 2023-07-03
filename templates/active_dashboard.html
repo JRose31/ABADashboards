@@ -7,7 +7,7 @@
 {% endblock %}
 {% block navbar %}
     <div class="left-navbar">
-        <a href="/home"><button class="navbar-buttons logout-btn">Home</button></a>
+        <a href="/home"><button class="navbar-buttons">Home</button></a>
     </div>
 {#    <div class="center-navbar">#}
 {#        <span class="nav-dashboard-name">{{data["dashboard_config"]["project_name"]}}</span>#}
@@ -19,58 +19,73 @@
 {% endblock %}
 {% block content %}
     <div class="action-bar">
-        <button class="action-btn" onclick="showPage('main-page')">Main Board</button>
-        <button class="action-btn" onclick="showPage('table-page')">View Table</button>
-        <button class="action-btn" onclick="showPage('anomaly-page')">Anomalies</button>
+        <a href="/home"><button class="home-btn action-btn">Home</button></a>
+        <div class="main-btns">
+            <button class="action-btn" onclick="showPage('main-page')">Main Board</button>
+            <button class="action-btn" onclick="showPage('table-page')">View Table</button>
+            <button class="action-btn" onclick="showPage('anomaly-page')">Anomalies</button>
+        </div>
+        <button class="setting- action-btn">Settings</button>
     </div>
-    <div class="main-dashboard" id="main-page">
-        <div class="top-row">
-            <div class="details-container">
-                <div class="dashboard-title">
-                    <h2>{{data["dashboard_config"]["project_name"]}}</h2>
+    <div class="content-container">
+        <div class="content-header">
+            <h2 class="nav-dashboard-name">{{data["dashboard_config"]["project_name"]}}</h2>
+            <div class="right-navbar">
+                <span>{{ user["email"] }}</span>
+                <a href="/"><button class="navbar-buttons logout-btn">Logout</button></a>
+            </div>
+        </div>
+
+        <div class="main-dashboard" id="main-page">
+            <div class="top-row">
+                <div class="details-container">
+{#                    <div class="dashboard-title">#}
+{#                        <h2>{{data["dashboard_config"]["project_name"]}}</h2>#}
+{#                    </div>#}
+                    <div class="kpi-row">
+                        <h3 class="kpi-label">Total Sales:</h3>
+                        <h2 class="kpi-number">{{ objects["kpis"][0]  }}</h2>
+                    </div>
                 </div>
-                <div class="kpi-row">
-                    <h3 class="kpi-label">Total Sales:</h3>
-                    <h2 class="kpi-number">{{ objects["kpis"][0]  }}</h2>
+                <div class="sales-graph-container">
+                    <h3>Sales timeline (DATES)</h3>
+                    <div class="line-chart" id="linegraph">
+                    </div>
                 </div>
             </div>
-            <div class="sales-graph-container">
-                <h3>Sales timeline (DATES)</h3>
-                <div class="line-chart" id="linegraph">
+
+            <div class="bottom-row">
+                <div class="bar-chart-container">
+                    <h3>Cost Analysis</h3>
+                    <div class="bar-chart" id="bargraph">
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="bottom-row">
-            <div class="bar-chart-container">
-                <h3>Cost Analysis</h3>
-                <div class="bar-chart" id="bargraph">
+        <div class="table-preview-container" id="table-page">
+            <h3>Your data at a glance.</h3>
+            <div class="table-container">
+                <div class="table" id="table">
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="table-preview-container" id="table-page">
-        <h3>Your data at a glance.</h3>
-        <div class="table-container">
-            <div class="table" id="table">
+        <div class="anomaly-container" id="anomaly-page">
+            <h2>Anomaly detection results...</h2>
+            <div class="ml-chart" id="mlgraph">
+            </div>
+            <div class="summary-stats">
+                {% for i in range(objects["kpis"][1]|length) %}
+                    <div>
+                        {% for x in range(objects["kpis"][1][i]|length) %}
+                            {{ objects["kpis"][1][i][x] }}<br>
+                        {% endfor %}
+                    </div>
+                {% endfor %}
             </div>
         </div>
-    </div>
 
-    <div class="anomaly-container" id="anomaly-page">
-        <h2>Anomaly detection results...</h2>
-        <div class="ml-chart" id="mlgraph">
-        </div>
-        <div class="summary-stats">
-            {% for i in range(objects["kpis"][1]|length) %}
-                <div>
-                    {% for x in range(objects["kpis"][1][i]|length) %}
-                        {{ objects["kpis"][1][i][x] }}<br>
-                    {% endfor %}
-                </div>
-            {% endfor %}
-        </div>
     </div>
 
 <script>
