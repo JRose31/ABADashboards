@@ -56,22 +56,6 @@ class UserTables(db.Model):
         self.col_mapping = col_mapping
 
 
-# class ProjectTable(db.Model):
-#     project_id = db.Column("project_id", db.Integer, primary_key=True)
-#     date = db.Column("date", db.DateTime)
-#     costs = db.Column("costs", db.Float)
-#     sales = db.Column("sales", db.Float)
-#     labor = db.Column("labor", db.Float)
-#     materials = db.Column("materials", db.Float)
-#
-#     def __init__(self, date, costs, sales, labor, materials):
-#         self.date = date
-#         self.costs = costs
-#         self.sales = sales
-#         self.labor = labor
-#         self.materials = materials
-
-
 def createDataTable(user_id, table_name, table_obj, dates, costs, sales, labor, materials, perc_profit_col):
     # Add table to UserTables (associate to user)
     table_obj = table_obj.to_json()
@@ -86,32 +70,6 @@ def createDataTable(user_id, table_name, table_obj, dates, costs, sales, labor, 
 
     userTable = UserTables(user_id=user_id, table_name=table_name, data=table_obj, col_mapping=col_mapping)
     db.session.add(userTable)
-
-    # Create new project table
-    # temp_table = db.Table(
-    #     table_name,
-    #     db.Column("project_id", db.Integer, primary_key=True),
-    #     db.Column("date", db.DateTime),
-    #     db.Column("costs", db.Float),
-    #     db.Column("sales", db.Float),
-    #     db.Column("labor", db.Float),
-    #     db.Column("materials", db.Float),
-    # )
-    # temp_table = ProjectTable
-    # temp_table.__tablename__ = table_name
-    #
-    # db.create_all()
-    # # Add project data to table object
-    # for i in range(table_obj.shape[0]):
-    #     row = temp_table(date=table_obj.at[i, dates],
-    #                      costs=table_obj.at[i, costs],
-    #                      sales=table_obj.at[i, sales],
-    #                      labor=table_obj.at[i, labor],
-    #                      materials=table_obj.at[i, materials])
-    #     db.session.add(row)
-    #
-    #     print(f"Added row: {len(temp_table.query.all())}")
-
     db.session.commit()
 
 
@@ -128,10 +86,9 @@ def save_only():
     perc_profit = data["dashboard_config"]["fields"]["perc_profit_field"]
 
     table_name = data["dashboard_config"]["project_name"]
-    cleaned_name = str(user["user_id"]) + '_' + table_name.replace(" ", "_")
 
     createDataTable(user_id=user["user_id"],
-                    table_name=cleaned_name,
+                    table_name=table_name,
                     table_obj=pandas_df,
                     dates=dates,
                     costs=costs,
@@ -204,10 +161,21 @@ def register():
 def home():
     user_info = session.get("account")
     if request.method == "POST":
-        print("Here")
-        for k, v in request.form.items():
-            print(k, ": ", v)
-        table_name = request.form.get("project_button")
+        action = request.form.get("project_button")
+
+        if action.startswith("delete_"):
+            table_name = action[7:]
+            UserTables.query.filter_by(user_id=user_info["user_id"], table_name=table_name).delete()
+            db.session.commit()
+            print(f'Deleted project: {table_name}')
+            return redirect('/home')
+
+        if action.startswith("edit_"):
+            table_name = action[5:]
+            print(f'Editing: {table_name}')
+            return redirect('/home')
+
+        table_name = action
         print(table_name)
         db_row = UserTables.query.filter_by(user_id=user_info["user_id"], table_name=table_name).first()
         print(db_row)
@@ -304,7 +272,6 @@ def active_dashboard():
     try:
         pandas_df = clean_data(pandas_df, date_field=dates, labor_field=labor, materials_field=materials)
         table_name = data["dashboard_config"]["project_name"]
-        cleaned_name = str(user["user_id"]) + '_' + table_name.replace(" ", "_")
 
         total_sales_kpi = sum(pandas_df[sales])
         total_sales_kpi = '${:,.2f}'.format(round(total_sales_kpi, 2))
@@ -328,7 +295,7 @@ def active_dashboard():
 
     if request.method == "POST":
         createDataTable(user_id=user["user_id"],
-                        table_name=cleaned_name,
+                        table_name=table_name,
                         table_obj=pandas_df,
                         dates=dates,
                         costs=costs,

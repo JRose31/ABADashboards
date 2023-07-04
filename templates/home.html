@@ -31,8 +31,8 @@
                             <h4 class="detail-rows">Dashboard last updated: <span class="project-load-date">DATE</span></h4>
                             <div class="main-action-btns">
                                 <button class="project-options view-btn" type="submit" name="project_button" value="{{ project }}">View</button>
-                                <button class="project-options edit-btn">Edit</button>
-                                <button class="project-options remove-btn">Remove</button>
+                                <button class="project-options edit-btn" name="project_button" value="edit_{{ project }}">Edit</button>
+                                <button class="project-options remove-btn" name="project_button" value="delete_{{ project }}">Remove</button>
                             </div>
                         </div>
                     </div>
@@ -45,9 +45,11 @@
         <form action="">
             <select name="" id="">
                 <option value="none">Select a dashboard.</option>
-                {% for project in projects %}
-                    <option value="{{ project }}">{{ project }}</option>
-                {% endfor %}
+                {% if projects %}
+                    {% for project in projects %}
+                        <option value="{{ project }}">{{ project }}</option>
+                    {% endfor %}
+                {% endif %}
             </select>
         </form>
     </div>

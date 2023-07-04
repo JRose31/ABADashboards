@@ -41,6 +41,15 @@ html, body{
 
 .logo-container{
     height: 9vh;
+    padding-left: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.logo-text{
+    font-size: 26px;
+    color: #7c7c7c;
+    text-shadow: #4B4B4B -1px 0 2px;
 }
 
 .navbar{
