@@ -6,10 +6,13 @@
     <link rel="stylesheet" href="{{ url_for("static", filename="css/preview_data.css") }}">
 {% endblock %}
 {% block navbar %}
-        <div class="username">
-            {{ user["email"] }}
+        <div class="left-navbar">
+            <a href="/home"><button class="navbar-buttons">Home</button></a>
         </div>
-        <a href="/"><button class="navbar-buttons">Logout</button></a>
+        <div class="right-navbar">
+            <span>{{ user["email"] }}</span>
+            <a href="/"><button class="navbar-buttons logout-btn">Logout</button></a>
+        </div>
 {% endblock %}
 {% block content %}
         <div class="preview-options">
@@ -63,6 +66,16 @@
                     </div>
 
                     <div class="selection-row">
+                        <em>(Optional)</em> Select all <b>associated materials</b>:
+                        <div class="materials-selection-box">
+                            {% for field in data["fields"] %}
+                                <input type="radio" name="is_material_{{ field }}" value="is_material_{{ field }}">
+                                <label for="is_material_{{ field }}">{{ field }}</label><br>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <div class="selection-row">
                         Select your <b>Percent Profit</b> column:
                         <select name="perc-profit-column" id="">
                             {% for field in data["fields"] %}
@@ -70,6 +83,7 @@
                             {% endfor %}
                         </select>
                     </div>
+
                     <div class="btn-container">
                         <input type="submit" name="submit-btn" value="Save & Analyze" class="action-btn analyze-btn">
                         <input type="submit" name="submit-btn" value="Save Only" class="action-btn save-only-btn">

@@ -17,14 +17,14 @@
     </div>
 {% endblock %}
 {% block content %}
-    <div class="projects-container">
+    <div class="projects-container make-card">
         <h2>Recent projects</h2>
         <form class="project-thumbnail-form" method="post">
             {% if projects %}
                 {% for project in projects %}
                     <div class="thumbnail-container">
                         <button class="thumbnail-btn" type="submit" name="project_button" value="{{ project }}">
-                            <img src="{{ url_for("static", filename="site_images/project_thumbnail.png") }}" alt="submit" width="70px"/>
+                            <img src="{{ url_for("static", filename="site_images/dashboard_thumbnail.png") }}" alt="submit" width="70px"/>
                         </button>
                         <div class="project-details-container">
                             <h3 class="thumbnail-label">{{ project }}</h3>
@@ -40,8 +40,8 @@
             {% endif %}
         </form>
     </div>
-    <div class="quick-data-add-container">
-        <h2>Add a record</h2>
+    <div class="quick-data-add-container make-card">
+        <h3>Add a record</h3>
         <form action="">
             <select name="" id="">
                 <option value="none">Select a dashboard.</option>

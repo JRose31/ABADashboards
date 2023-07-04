@@ -1,6 +1,11 @@
-
-.navbar-buttons{
-    margin-left: 10px;
+.navbar{
+    display: flex;
+    width: 100vw;
+    height: 6vh;
+    justify-content: space-between;
+}
+.right-navbar{
+    justify-content: end;
 }
 
 .preview-options{
@@ -16,7 +21,7 @@
     display: flex;
     flex-direction: column;
     width: 30vw;
-    height: 65vh;
+    height: 70vh;
     padding-top: 15px;
     /*align-items: center;*/
     /*justify-content: center;*/
@@ -24,17 +29,20 @@
 }
 
 form{
-    height: 50vh;
-    font-size: 18px;
+    display: flex;
+    flex-direction: column;
+    height: 70vh;
+    font-size: 16px;
     font-family: Swansea;
 }
 
 .data-title{
     font-size: 16px;
+    width: 70%;
 }
 
 select{
-    font-size: 16px;
+    font-size: 14px;
     font-family: Swansea;
     font-weight: bold;
     color: #6D6D6D;
@@ -45,17 +53,26 @@ select{
     margin-top: 15px;
 }
 
+.materials-selection-box{
+    font-size: 14px;
+    height: 10vh;
+    overflow-y: scroll;
+    border: rgba(146,146,146,0.61) solid 1px;
+    margin-right: 50px;
+}
+
 .btn-container{
     display: flex;
     width: 30vw;
-    height: 20vh;
+    height: 100px;
     align-items: center;
     justify-content: center;
-    margin-bottom: 10px;
+    bottom: 5px;
+    /*border: orange solid 1px;*/
 }
 
 .action-btn{
-    font-size: 18px;
+    font-size: 16px;
     /*width: 150px;*/
     /*height: 30px;*/
     /*border-radius: 20px;*/
@@ -63,23 +80,34 @@ select{
     border: none;
     background-color: transparent;
     margin-right: 20px;
+    padding: 5px;
+}
+
+.analyze-btn{
+    border: none;
 }
 
 .analyze-btn:hover{
     cursor: pointer;
     /*background-color: #467BDE;*/
-    color: #467BDE;
-    font-weight: bold;
-    text-shadow: #4D87F4 -1px 0 2px;
+    background-color: #467BDE;
+    /*font-weight: bold;*/
+    color: white;
+    text-shadow: #6D6D6D -1px 0 2px;
     /*border: #4a88b8 solid 2px;*/
+}
+
+.save-only-btn{
+    border: none;
 }
 
 .save-only-btn:hover{
     cursor: pointer;
     /*background-color: #467BDE;*/
-    color: #7692D6;
-    font-weight: bold;
-    text-shadow: #4D87F4 -1px 0 2px;
+    background-color: #6287d0;
+    /*font-weight: bold;*/
+    color: white;
+    text-shadow: #6D6D6D -1px 0 2px;
     /*border: #4a88b8 solid 2px;*/
 }
 

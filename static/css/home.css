@@ -22,11 +22,10 @@
 
 .projects-container{
     /*width: 50vw;*/
-    height: max-content;
+    height: 75vh;
     display: flex;
     flex-direction: column;
     padding-left: 25px;
-    border-bottom: rgba(179,179,179,0.57) solid 1px;
     padding-bottom: 10px;
     /*border: blue solid 2px;*/
 
@@ -34,10 +33,11 @@
 
 .quick-data-add-container{
     /*width: 50vw;*/
-    height: max-content;
+    height: 75vh;
     display: flex;
     flex-direction: column;
-    padding-left: 50px;
+    margin-left: 20px;
+    padding: 0 10px 0 10px;
     /*border: orange solid 2px;*/
 }
 
@@ -47,6 +47,8 @@
     width: 40vw;
     height: 60vh;
     overflow-y: scroll;
+    margin-right: 5px;
+    border-bottom: rgba(179,179,179,0.57) solid 1px;
     /*border: solid red 1px;*/
 }
 
@@ -54,12 +56,15 @@
     display: flex;
     padding-top: 20px;
     padding-bottom: 20px;
+    padding-left: 10px;
+    border-bottom: rgba(179,179,179,0.57) solid 1px;
 }
 
 .project-details-container{
     display: flex;
     flex-direction: column;
     margin-left: 15px;
+    padding-top: 5px;
 }
 
 .detail-rows{
@@ -78,8 +83,9 @@
 
 .thumbnail-btn{
     background-color: white;
-    border-radius: 50px;
-    border: solid 2px transparent;
+    border-radius: 10px;
+    border: solid 5px transparent;
+    opacity: 60%;
 }
 
 .thumbnail-btn img{
@@ -88,15 +94,16 @@
 
 .thumbnail-btn:hover{
     cursor: pointer;
-    border: #4D87F4 solid 2px;
-    border-radius: 15px;
-    box-shadow: #6D6D6D 2px 2px 5px;
+    border: rgba(77,135,244,0.8) solid 5px;
+    border-radius: 10px;
+    box-shadow: #6D6D6D -2px 2px 5px;
+    opacity: 100%;
 }
 
 .main-action-btns{
     display: flex;
     width: 100%;
-    margin-top: 2px;
+    margin-top: 18px;
 }
 
 .project-options{
@@ -105,7 +112,11 @@
     padding: 5px 10px 5px 10px;
     border-radius: 2px;
     background-color: #7a7a7a;
-    color: #a7a7a7;
+    color: #c3c3c3;
+}
+
+.project-options:hover{
+    box-shadow: #6D6D6D -2px 2px 1px;
 }
 
 .view-btn:hover{

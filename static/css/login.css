@@ -1,4 +1,12 @@
-
+.graphic-container{
+    display: flex;
+    flex-direction: column;
+    width: 50vw;
+    height: available;
+    padding-left: 20px;
+    align-self: center;
+    align-items: center;
+}
 
 .login-container{
     align-self: center;

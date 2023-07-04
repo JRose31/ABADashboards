@@ -5,27 +5,22 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
     <link rel="stylesheet" href="{{ url_for("static", filename="css/active_dashboard.css") }}">
 {% endblock %}
-{% block navbar %}
-    <div class="left-navbar">
-        <a href="/home"><button class="navbar-buttons">Home</button></a>
-    </div>
-{#    <div class="center-navbar">#}
-{#        <span class="nav-dashboard-name">{{data["dashboard_config"]["project_name"]}}</span>#}
-{#    </div>#}
-    <div class="right-navbar">
-        <span>{{ user["email"] }}</span>
-        <a href="/"><button class="navbar-buttons logout-btn">Logout</button></a>
-    </div>
-{% endblock %}
+
 {% block content %}
     <div class="action-bar">
-        <a href="/home"><button class="home-btn action-btn">Home</button></a>
+        <button class="home-btn action-btn">
+            <a href="/home">
+                <img src="{{ url_for("static", filename="site_images/back_home.png") }}" alt="" width="40px">
+            </a>
+        </button>
         <div class="main-btns">
             <button class="action-btn" onclick="showPage('main-page')">Main Board</button>
+            <button class="action-btn" onclick="showPage('anomaly-page')">Deep Dive</button>
             <button class="action-btn" onclick="showPage('table-page')">View Table</button>
-            <button class="action-btn" onclick="showPage('anomaly-page')">Anomalies</button>
         </div>
-        <button class="setting- action-btn">Settings</button>
+        <button class="setting-btn action-btn">
+            <img src="{{ url_for("static", filename="site_images/gear_icon.png") }}" alt="" width="30px">
+        </button>
     </div>
     <div class="content-container">
         <div class="content-header">

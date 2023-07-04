@@ -7,7 +7,9 @@
     <a href="/register"><button class="navbar-buttons">Register</button></a>
 {% endblock %}
 {% block content %}
-
+        <div class="graphic-container">
+            <img src="{{ url_for("static", filename="site_images/intro_graphic.png") }}" alt="" width="550px">
+        </div>
         <div class="login-container make-card">
             <h3>Account Login</h3>
             <form action="" method="post">

@@ -112,6 +112,8 @@ def anomaly_detection(dat, columns, verbose=False):
                                   columns["materials"],
                                   columns["perc_profit"]])
     fig3 = go.Figure(data=fig1.data + fig2.data)
+    fig3.update_layout(
+        margin=dict(l=0, r=0, t=0, b=0))
     graphJSON = json.dumps(fig3, cls=plotly.utils.PlotlyJSONEncoder)
 
     # Summary Stats for Anomalies

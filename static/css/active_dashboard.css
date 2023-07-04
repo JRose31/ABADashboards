@@ -17,7 +17,19 @@
     height: 100vh;
     width: 10vw;
     background-color: #909090;
-    justify-content: space-between;
+}
+
+.home-btn{
+    height: 70px;
+
+}
+
+.home-btn img{
+    opacity: 50%;
+}
+
+.home-btn img:hover{
+    opacity: 100%;
 }
 
 .action-btn{
@@ -30,22 +42,35 @@
     border: none;
 }
 
+.main-btns .action-btn:hover{
+    background-color: #6e6e6e;
+    color: white;
+}
+
 .main-btns{
+    /*margin-top: 15px;*/
     display: flex;
     flex-direction: column;
     height: 100%;
     /*border: #4D87F4 solid 2px;*/
-    align-items: center;
-    justify-content: center;
+    /*align-items: center;*/
+    /*justify-content: center;*/
 }
 
 .main-btns .action-btn{
     height: 50px;
 }
 
-.action-btn:hover{
-    background-color: #6e6e6e;
-    color: white;
+.setting-btn{
+    justify-self: end;
+}
+
+.setting-btn img{
+    opacity: 50%;
+}
+
+.setting-btn img:hover{
+    opacity: 100%;
 }
 
 .content-container{
@@ -58,7 +83,7 @@
 
 .content-header{
     display: flex;
-    height: 20vh;
+    height: 15vh;
     width: 90vw;
     /*border: red solid 2px;*/
     align-items: center;
@@ -146,8 +171,8 @@
 .table-preview-container{
     display: none;
     flex-direction: column;
-    width: 47vw;
-    height: 43vh;
+    width: 85vw;
+    height: 75vh;
     /*border: crimson solid 3px;*/
     /*justify-content: center;*/
     margin-left: 15px;
@@ -156,18 +181,17 @@
 }
 
 .table-preview-container h3{
-    height: 1vh;
 }
 
 .table-container{
     overflow-x: scroll;
-    height: 42vh;
+    height: 75vh;
 }
 
 .table{
     width: 200vw;
     box-shadow: #7d7d7d -5px 0 10px;
-    height: 42vh;
+    height: 200vh;
     /*padding: 0;*/
     /*margin: 0;*/
 }
@@ -175,7 +199,7 @@
 .bar-chart-container{
     display: flex;
     flex-direction: column;
-    width: 46vw;
+    width: 85vw;
     height: 43vh;
     margin-left: 30px;
     /*border: purple solid 3px;*/
@@ -201,6 +225,8 @@
 
 .anomaly-container{
     display: none;
+    height: 85vh;
+    width: 90vw;
     flex-direction: column;
     background-color: white;
     align-self: center;
