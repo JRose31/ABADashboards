@@ -8,7 +8,7 @@ from flask import (request,
 from werkzeug.utils import secure_filename
 import os
 from os.path import join, dirname, realpath
-from handlers.data_handling import file_options
+from handlers.data_handling import file_options, clean_data
 from handlers.graph_templates import *
 from handlers.models import UserLogin, UserTables, createDataTable, createDB, registerUser, deleteTable
 import secrets
@@ -30,10 +30,11 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 Session(app)
 database.init_app(app)
 
+
 class CurrentData:
     def __init__(self):
         self.table_name = None
-        self.perc_profit = None
+        # self.perc_profit = None
         self.dates = None
         self.sales = None
         self.materials = None
@@ -48,8 +49,17 @@ class CurrentData:
         self.materials = data["dashboard_config"]["fields"]["materials_field"]
         self.sales = data["dashboard_config"]["fields"]["sales_field"]
         self.dates = data["dashboard_config"]["fields"]["date_field"]
-        self.perc_profit = data["dashboard_config"]["fields"]["perc_profit_field"]
+        # self.perc_profit = data["dashboard_config"]["fields"]["perc_profit_field"]
         self.table_name = data["dashboard_config"]["project_name"]
+
+    def update_percent_profit(self):
+        try:
+            self.pandas_df[self.sales] = pd.to_numeric(self.pandas_df[self.sales], errors="ignore")
+            self.pandas_df[self.costs] = pd.to_numeric(self.pandas_df[self.costs], errors="ignore")
+            self.pandas_df["profit"] = self.pandas_df[self.sales]-self.pandas_df[self.costs]
+            self.pandas_df["percent_profit"] = (self.pandas_df["profit"]/self.pandas_df[self.sales])*100
+        except Exception as e:
+            print(e)
 
 
 def saveData():
@@ -57,7 +67,14 @@ def saveData():
     user = session.get("account")
 
     data_obj = CurrentData()
+
+    # Pass data to
     data_obj.extract_data(data)
+    data_obj.pandas_df = clean_data(data_obj.pandas_df,
+                                    date_field=data_obj.dates,
+                                    labor_field=data_obj.labor,
+                                    materials_field=data_obj.materials)
+    data_obj.update_percent_profit()
 
     createDataTable(user_id=user["user_id"],
                     table_name=data_obj.table_name,
@@ -66,8 +83,7 @@ def saveData():
                     costs=data_obj.costs,
                     sales=data_obj.sales,
                     labor=data_obj.labor,
-                    materials=data_obj.materials,
-                    perc_profit_col=data_obj.perc_profit)
+                    materials=data_obj.materials,)
 
 
 @app.route('/create_db', methods=["GET"])
@@ -184,6 +200,7 @@ def data_import():
 
 @app.route('/preview-data', methods=["GET", "POST"])
 def preview_data():
+    messages=None
     if request.method == "POST":
         title = request.form.get("data-title")
         date_col = request.form.get("date-column")
@@ -191,7 +208,7 @@ def preview_data():
         costs_col = request.form.get("costs-column")
         labor_col = request.form.get("labor-column")
         materials_col = request.form.get("materials-column")
-        perc_profit_col = request.form.get("perc-profit-column")
+        # perc_profit_col = request.form.get("perc-profit-column")
         data = session.get("preview_dataframe")
         data["dashboard_config"] = {"project_name": title,
                                     "fields": {"date_field": date_col,
@@ -199,21 +216,31 @@ def preview_data():
                                                "costs_field": costs_col,
                                                "labor_field": labor_col,
                                                "materials_field": materials_col,
-                                               "perc_profit_field": perc_profit_col},
+                                               },
                                     }
 
         action = request.form["submit-btn"]
         if action == "Save & Analyze":
-            saveData()
-            return redirect("/active-dashboard", code=307)
+            try:
+                saveData()
+                return redirect("/active-dashboard", code=307)
+            except Exception as e:
+                message = "Please follow upload instructions. " \
+                          "If the issue persists, report the following error to dev support:"
+                messages = [message, e]
         else:
-            saveData()
-            return redirect('/home')
+            try:
+                saveData()
+                return redirect('/home')
+            except Exception as e:
+                message = "Please follow upload instructions. " \
+                          "If the issue persists, report the following error to dev support:"
+                messages = [message, e]
     data = session.get("preview_dataframe")
     username = session.get("account")
     preview_dataframe = data["dataframe"]
     table = create_table(preview_dataframe.loc[:100])
-    return render_template('preview_data.html', data=data, table=table, user=username)
+    return render_template('preview_data.html', data=data, table=table, user=username, messages=messages)
 
 
 @app.route('/active-dashboard', methods=["GET", "POST"])
@@ -223,6 +250,7 @@ def active_dashboard():
 
     data_obj = CurrentData()
     data_obj.extract_data(data)
+    data_obj.update_percent_profit()
 
     pandas_df = data_obj.pandas_df
     dates = data_obj.dates
@@ -230,32 +258,24 @@ def active_dashboard():
     costs = data_obj.costs
     labor = data_obj.labor
     materials = data_obj.materials
-    perc_profit = data_obj.perc_profit
 
-    try:
-        pandas_df = clean_data(pandas_df, date_field=dates, labor_field=labor, materials_field=materials)
-
-        total_sales_kpi = sum(pandas_df[sales])
-        total_sales_kpi = '${:,.2f}'.format(round(total_sales_kpi, 2))
-        bar = create_bar_plot(pandas_df, costs, labor, materials)
-        ml_graph, summary_stats = anomaly_detection(pandas_df, columns={"perc_profit": perc_profit,
-                                                                        "date": dates,
-                                                                        "sales": sales,
-                                                                        "labor": labor,
-                                                                        "materials": materials})
-        line = create_line_plot(pandas_df, dates, sales)
-        table = create_table(pandas_df.loc[:100])
-        session["dashboard_objects"] = {"kpis": [total_sales_kpi, summary_stats],
-                                        "visuals": {"bar": bar,
-                                                    "line": line,
-                                                    "table": table,
-                                                    "ml_graph": ml_graph}}
-        visual_objects = session.get("dashboard_objects")
-    except Exception as e:
-        print(e)
-        if request.method == "POST":
-            return redirect('/preview-data')
-        return redirect('/home')
+    total_sales_kpi = sum(pandas_df[sales])
+    total_sales_kpi = '${:,.2f}'.format(round(total_sales_kpi, 2))
+    bar = create_bar_plot(pandas_df, costs, labor, materials)
+    ml_graph, summary_stats = anomaly_detection(pandas_df, columns={"date": dates,
+                                                                    "sales": sales,
+                                                                    "labor": labor,
+                                                                    "materials": materials,
+                                                                    }
+                                                )
+    line = create_line_plot(pandas_df, dates, sales)
+    table = create_table(pandas_df.loc[:100])
+    session["dashboard_objects"] = {"kpis": [total_sales_kpi, summary_stats],
+                                    "visuals": {"bar": bar,
+                                                "line": line,
+                                                "table": table,
+                                                "ml_graph": ml_graph}}
+    visual_objects = session.get("dashboard_objects")
 
     return render_template('active_dashboard.html', data=data, user=user, objects=visual_objects)
 

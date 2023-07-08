@@ -14,14 +14,21 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    /*justify-content: center;*/
+    /*border: solid red 2px;*/
+    justify-content: center;
+}
+
+.inner-preview-options{
+    /*display: flex;*/
+    /*flex-direction: column;*/
+    /*border: solid blue 2px;*/
 }
 
 .form-container{
     display: flex;
     flex-direction: column;
     width: 30vw;
-    height: 70vh;
+    height: fit-content;
     padding-top: 15px;
     /*align-items: center;*/
     /*justify-content: center;*/
@@ -31,7 +38,7 @@
 form{
     display: flex;
     flex-direction: column;
-    height: 70vh;
+    /*height: 70vh;*/
     font-size: 16px;
     font-family: Swansea;
 }
@@ -64,10 +71,11 @@ select{
 .btn-container{
     display: flex;
     width: 30vw;
-    height: 100px;
+    /*height: 100px;*/
     align-items: center;
     justify-content: center;
     bottom: 5px;
+    margin: 20px 0 20px 0;
     /*border: orange solid 1px;*/
 }
 
@@ -109,6 +117,37 @@ select{
     color: white;
     text-shadow: #6D6D6D -1px 0 2px;
     /*border: #4a88b8 solid 2px;*/
+}
+.error-container{
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    /*border: red solid 2px;*/
+    background-color: white;
+    padding: 5px 5px 2px 5px;
+}
+
+.error-container button{
+    display: flex;
+    width: fit-content;
+    align-self: end;
+    margin: 2px 3px 0 0;
+}
+.error-message-container{
+    height: 30vh;
+    /*border: red solid 2px;*/
+    display: flex;
+    flex-direction: column;
+    width: 20vw;
+    align-self: center;
+    overflow-y: scroll;
+    padding: 5px 0 5px 0;
+    margin: 2px 0 2px 0;
+}
+.error-message-container span{
+    font-size: 14px;
+    font-style: italic;
+    margin-bottom: 5px;
 }
 
 .table-preview-container{

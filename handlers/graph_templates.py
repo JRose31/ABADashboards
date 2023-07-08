@@ -8,32 +8,6 @@ import json
 import numpy as np
 
 
-def clean_data(data, date_field, labor_field, materials_field, ):
-    print("Cleaning Data...")
-    # Data Cleaning
-    # Fill in foreman with most common foreman
-    # data['Foremn'] = data['Foremn'].fillna(data['Foremn'].mode())
-
-    # Fill in Paint with average
-    data[materials_field] = data[materials_field].fillna(data[materials_field].mean())
-
-    # Fill in labor with average?
-    data[labor_field] = data[labor_field].fillna(data[labor_field].mean())
-
-    # Fill in everything else with 0
-    data = data.fillna(0)
-
-    # Change date to datetime
-    data[date_field] = pd.to_datetime(data[date_field], format='%Y-%m-%d %H:%M:%S')
-
-    # Sort data frame based on date
-    data = data.sort_values(date_field)
-
-    # Create numerical data for future analyses
-    data["Date Numeric"] = pd.to_numeric(data[date_field])
-    print("Cleaning complete.")
-    return data
-
 def create_bar_plot(df, costs, labor, materials):
     df_agg = df[[costs, labor, materials]].sum()
     data = [
@@ -79,13 +53,20 @@ def create_line_plot(df, x, y):
 
 def create_table(df):
     data = [go.Table(header=dict(values=list(df.columns)),
-                     cells=dict(values=df.transpose().values.tolist()), )
+                     cells=dict(values=df.transpose().values.tolist()),
+                     hoverinfo='none')
             ]
 
     fig = go.Figure(data)
 
     fig.update_layout(
-        margin=dict(l=0, r=0, t=0, b=0))
+        margin=dict(l=0, r=0, t=0, b=0),
+        # style_cell={
+        #     'overflow': 'hidden',
+        #     'textOverflow': 'ellipsis',
+        #     'maxWidth': 0,
+        # }
+    )
 
     graphJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
 
@@ -94,7 +75,7 @@ def create_table(df):
 
 def anomaly_detection(dat, columns, verbose=False):
     print("Data Type: ", type(dat))
-    dat_col = dat[[columns["perc_profit"]]].copy()
+    dat_col = dat[["percent_profit"]].copy()
 
     # Use Isolation Forest to identify anomalies
     clf = IsolationForest()
@@ -104,21 +85,21 @@ def anomaly_detection(dat, columns, verbose=False):
     dat.loc[dat['scores'] < -.6, 'anomaly'] = True
 
     # Plot histograms
-    fig1 = px.line(dat, x=columns["date"], y=columns["perc_profit"])
-    fig2 = px.scatter(dat, x=columns["date"], y=columns["perc_profit"], color='anomaly',
+    fig1 = px.line(dat, x=columns["date"], y="percent_profit")
+    fig2 = px.scatter(dat, x=columns["date"], y="percent_profit", color='anomaly',
                       hover_data=[columns["date"],
                                   columns["sales"],
                                   columns["labor"],
                                   columns["materials"],
-                                  columns["perc_profit"]])
+                                  "percent_profit"])
     fig3 = go.Figure(data=fig1.data + fig2.data)
     fig3.update_layout(
         margin=dict(l=0, r=0, t=0, b=0))
     graphJSON = json.dumps(fig3, cls=plotly.utils.PlotlyJSONEncoder)
 
     # Summary Stats for Anomalies
-    low_anom = dat[(dat['anomaly'] == True) & (dat[columns["perc_profit"]] < dat[columns["perc_profit"]].median())]
-    high_anom = dat[(dat['anomaly'] == True) & (dat[columns["perc_profit"]] >= dat[columns["perc_profit"]].median())]
+    low_anom = dat[(dat['anomaly'] == True) & (dat["percent_profit"] < dat["percent_profit"].median())]
+    high_anom = dat[(dat['anomaly'] == True) & (dat["percent_profit"] >= dat["percent_profit"].median())]
 
     summary_stats = []
     section_prompt = f"Below are some details on your jobs that have unusually low percent profit:\n"

@@ -16,80 +16,83 @@
 {% endblock %}
 {% block content %}
         <div class="preview-options">
-            <h3>We're ready to map your data!</h3>
-            <div class="form-container make-card" id="form-container">
-                <form action="" method="post" class="dashboard-form">
-                    <input name="data-title" type="text" class="data-title" placeholder="Give your data a name...">
-                    <div class="selection-row">
-                        Select your <b>Date</b> column:
-                        <select name="date-column" id="">
-                            {% for field in data["fields"] %}
-                                <option value="{{ field }}">{{ field }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-
-                    <div class="selection-row">
-                        Select your <b>Sales</b> column:
-                        <select name="sales-column" id="">
-                            {% for field in data["fields"] %}
-                                <option value="{{ field }}">{{ field }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-
-                    <div class="selection-row">
-                        Select your <b>Costs</b> column:
-                        <select name="costs-column" id="">
-                            {% for field in data["fields"] %}
-                                <option value="{{ field }}">{{ field }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-
-                    <div class="selection-row">
-                        Select your <b>Labor</b> column:
-                        <select name="labor-column" id="">
-                            {% for field in data["fields"] %}
-                                <option value="{{ field }}">{{ field }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-
-                    <div class="selection-row">
-                        Select your <b>Materials</b> column:
-                        <select name="materials-column" id="">
-                            {% for field in data["fields"] %}
-                                <option value="{{ field }}">{{ field }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-
-                    <div class="selection-row">
-                        <em>(Optional)</em> Select all <b>associated materials</b>:
-                        <div class="materials-selection-box">
-                            {% for field in data["fields"] %}
-                                <input type="radio" name="is_material_{{ field }}" value="is_material_{{ field }}">
-                                <label for="is_material_{{ field }}">{{ field }}</label><br>
-                            {% endfor %}
+            <div class="inner-preview-options">
+                <h3>We're ready to map your data!</h3>
+                <div class="form-container make-card" id="form-container">
+                    <form action="" method="post" class="dashboard-form">
+                        <input name="data-title" type="text" class="data-title" placeholder="Give your data a name...">
+                        <div class="selection-row">
+                            Select your <b>Date</b> column:
+                            <select name="date-column" id="">
+                                {% for field in data["fields"] %}
+                                    <option value="{{ field }}">{{ field }}</option>
+                                {% endfor %}
+                            </select>
                         </div>
-                    </div>
 
-                    <div class="selection-row">
-                        Select your <b>Percent Profit</b> column:
-                        <select name="perc-profit-column" id="">
-                            {% for field in data["fields"] %}
-                                <option value="{{ field }}">{{ field }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
+                        <div class="selection-row">
+                            Select your <b>Sales</b> column:
+                            <select name="sales-column" id="">
+                                {% for field in data["fields"] %}
+                                    <option value="{{ field }}">{{ field }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
 
-                    <div class="btn-container">
-                        <input type="submit" name="submit-btn" value="Save & Analyze" class="action-btn analyze-btn">
-                        <input type="submit" name="submit-btn" value="Save Only" class="action-btn save-only-btn">
-                    </div>
-                </form>
+                        <div class="selection-row">
+                            Select your <b>Costs</b> column:
+                            <select name="costs-column" id="">
+                                {% for field in data["fields"] %}
+                                    <option value="{{ field }}">{{ field }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="selection-row">
+                            Select your <b>Labor</b> column:
+                            <select name="labor-column" id="">
+                                {% for field in data["fields"] %}
+                                    <option value="{{ field }}">{{ field }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="selection-row">
+                            Select your <b>Materials</b> column:
+                            <select name="materials-column" id="">
+                                {% for field in data["fields"] %}
+                                    <option value="{{ field }}">{{ field }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="selection-row">
+                            <em>(Optional)</em> Select all <b>associated materials</b>:
+                            <div class="materials-selection-box">
+                                {% for field in data["fields"] %}
+                                    <input type="radio" name="is_material_{{ field }}" value="is_material_{{ field }}">
+                                    <label for="is_material_{{ field }}">{{ field }}</label><br>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <div class="btn-container">
+                            <input type="submit" name="submit-btn" value="Save & Analyze" class="action-btn analyze-btn">
+                            <input type="submit" name="submit-btn" value="Save Only" class="action-btn save-only-btn">
+                        </div>
+                    </form>
+                </div>
             </div>
+            {% if messages %}
+                <div class="error-container make-card" id="alert">
+                    <button onclick="hide('alert')">x</button>
+                    <div class="error-message-container">
+                        {% for message in messages %}
+                            <span>{{ message }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
         </div>
 
         <div class="table-preview-container">
@@ -102,10 +105,9 @@
 <script>
     var table = {{table | safe}};
     Plotly.plot('table',table,{});
-    {#function replace( hide, show ) {#}
-    {#  document.getElementById(hide).style.display="none";#}
-    {#  document.getElementById(show).style.display="flex";#}
-    {# }
-    {##}
+    function hide(class_name){
+        let container = document.getElementById(class_name);
+        container.style.display = 'none';
+    }
 </script>
 {% endblock %}

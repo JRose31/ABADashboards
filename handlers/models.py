@@ -41,6 +41,7 @@ def registerUser(email=None, pwd=None):
     db.session.add(new_user)
     db.session.commit()
 
+
 def createDataTable(user_id,
                     table_name,
                     table_obj,
@@ -48,16 +49,33 @@ def createDataTable(user_id,
                     costs,
                     sales,
                     labor,
-                    materials,
-                    perc_profit_col):
+                    materials, ):
+    # Check if table name already exists
+    existing_tables = UserTables.query.filter_by(user_id=user_id, table_name=table_name).all()
+    print(len(existing_tables))
+    if len(existing_tables) > 0:
+        # Get all duplicate named tables
+        all_tables = UserTables.query.filter_by(user_id=user_id).all()
+        duplicate_tables = [table.table_name for table in all_tables if table.table_name.startswith(table_name)]
+        latest_version = 0
+        for table in duplicate_tables:
+            try:
+                version = int(table[-3:].replace("(", "").replace(")",""))
+                if version > latest_version:
+                    latest_version = version
+            except:
+                pass
+        table_name = table_name+f" ({latest_version+1})"
+        print(f"Copy created {table_name}")
+
     # Add table to UserTables (associate to user)
     table_obj = table_obj.to_json()
     col_mapping = {'date_field': f'{dates}',
                    'costs_field': f'{costs}',
                    'sales_field': f'{sales}',
                    'labor_field': f'{labor}',
-                   'materials_field': f'{materials}',
-                   'perc_profit_field': f'{perc_profit_col}'}
+                   'materials_field': f'{materials}', }
+    # 'perc_profit_field': f'{perc_profit_col}'}
 
     col_mapping = json.dumps(col_mapping)
 
