@@ -42,8 +42,8 @@
     </div>
     <div class="quick-data-add-container make-card">
         <h3>Add a record</h3>
-        <form action="">
-            <select name="" id="">
+        <form action="" method="post">
+            <select name="table-selection" id="dashboard-selector" onchange="reveal_form()">
                 <option value="none">Select a dashboard.</option>
                 {% if projects %}
                     {% for project in projects %}
@@ -51,6 +51,39 @@
                     {% endfor %}
                 {% endif %}
             </select>
+            <div class="add-record-input-container" id="add-record-form">
+                <label for="add-record-date">Date</label>
+                <input name="add-record-date" type="date">
+
+                <label for="add-record-sales">Sales</label>
+                <input name="add-record-sales" type="number">
+
+                <label for="add-record-materials">Materials</label>
+                <input name="add-record-materials" type="number">
+
+                <label for="add-record-labor">Labor</label>
+                <input name="add-record-labor" type="number">
+
+                <label for="add-record-costs">Total Costs</label>
+                <input name="add-record-costs" type="number">
+
+                <input type="submit" name="project_button" value="Add record" class="add-record-submit-btn">
+            </div>
         </form>
     </div>
+    <script>
+    function reveal_form(){
+        let add_form = document.getElementById("add-record-form");
+        let selection = document.getElementById("dashboard-selector");
+        console.log(selection.value);
+        if(selection.value !== "none"){
+            add_form.style.display = "flex";
+            console.log("Dashboard selected...");
+        }
+        else{
+            add_form.style.display = "none";
+            console.log("No dashboard displayed");
+        }
+    }
+    </script>
 {% endblock %}

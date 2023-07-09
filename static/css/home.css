@@ -41,6 +41,27 @@
     /*border: orange solid 2px;*/
 }
 
+.quick-data-add-container form{
+    display: flex;
+    flex-direction: column;
+    height: available;
+    border: blue solid 3px;
+}
+
+.add-record-input-container{
+    display: none;
+    flex-direction: column;
+    height: available;
+    border: solid red 2px;
+}
+.add-record-input-container input{
+    height: 30px;
+}
+
+.add-record-submit-btn{
+    bottom: 5px;
+}
+
 .project-thumbnail-form{
     display: flex;
     flex-direction: column;

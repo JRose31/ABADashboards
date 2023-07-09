@@ -10,7 +10,7 @@ import os
 from os.path import join, dirname, realpath
 from handlers.data_handling import file_options, clean_data
 from handlers.graph_templates import *
-from handlers.models import UserLogin, UserTables, createDataTable, createDB, registerUser, deleteTable
+from handlers.models import *
 import secrets
 
 UPLOAD_FOLDER = join(dirname(realpath(__file__)), 'static/temp_files')
@@ -148,6 +148,25 @@ def home():
         if action.startswith("edit_"):
             table_name = action[5:]
             print(f'Editing: {table_name}')
+            return redirect('/home')
+
+        if action == "Add record":
+            print("Adding record")
+            table_name = request.form.get("table-selection")
+            date = request.form.get("add-record-date")
+            sales = request.form.get("add-record-sales")
+            materials = request.form.get("add-record-materials")
+            labor = request.form.get("add-record-labor")
+            costs = request.form.get("add-record-costs")
+
+            addRecord(user_id=user_info["user_id"],
+                      table_name=table_name,
+                      date=date,
+                      sales=sales,
+                      materials=materials,
+                      labor=labor,
+                      costs=costs)
+
             return redirect('/home')
 
         table_name = action

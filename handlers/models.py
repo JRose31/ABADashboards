@@ -1,5 +1,6 @@
 from .database import db
 import json
+import pandas as pd
 
 
 class UserLogin(db.Model):
@@ -82,6 +83,34 @@ def createDataTable(user_id,
     userTable = UserTables(user_id=user_id, table_name=table_name, data=table_obj, col_mapping=col_mapping)
     db.session.add(userTable)
     db.session.commit()
+
+
+def addRecord(user_id, table_name, date, sales, materials, labor, costs):
+    row = UserTables.query.filter_by(user_id=user_id, table_name=table_name).first()
+    current_df = pd.read_json(row.data)
+    print(f"Old shape of dataframe: {current_df.shape}...")
+    col_mapping_dict = json.loads(row.col_mapping)
+    new_record = {
+        col_mapping_dict["date_field"]: pd.to_datetime(date),
+        col_mapping_dict["sales_field"]: float(sales),
+        col_mapping_dict["materials_field"]: float(materials),
+        col_mapping_dict["labor_field"]: float(labor),
+        col_mapping_dict["costs_field"]: float(costs),
+    }
+
+    # current_df = current_df.append(new_record)
+    current_df = pd.concat([current_df, pd.DataFrame([new_record])], ignore_index=True)
+    print(f"New shape of dataframe: {current_df.shape}...")
+
+    table_obj = current_df.to_json()
+    row.data = table_obj
+    db.session.commit()
+
+    # print(f"Current Table Object: {current_df.head()}")
+    # print("=====================\n=====================")
+    # print(f"Col Mapping Dictionary: {col_mapping_dict}")
+    # print("=====================\n=====================")
+    print(f"Added data:{date, sales, materials, labor, costs}")
 
 
 def deleteTable(user_id=None, table_name=None):
