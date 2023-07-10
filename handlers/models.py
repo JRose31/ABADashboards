@@ -50,7 +50,8 @@ def createDataTable(user_id,
                     costs,
                     sales,
                     labor,
-                    materials, ):
+                    materials,
+                    get_name=False):
     # Check if table name already exists
     existing_tables = UserTables.query.filter_by(user_id=user_id, table_name=table_name).all()
     print(len(existing_tables))
@@ -83,6 +84,9 @@ def createDataTable(user_id,
     userTable = UserTables(user_id=user_id, table_name=table_name, data=table_obj, col_mapping=col_mapping)
     db.session.add(userTable)
     db.session.commit()
+
+    if get_name:
+        return table_name
 
 
 def addRecord(user_id, table_name, date, sales, materials, labor, costs):

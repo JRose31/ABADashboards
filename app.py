@@ -56,13 +56,13 @@ class CurrentData:
         try:
             self.pandas_df[self.sales] = pd.to_numeric(self.pandas_df[self.sales], errors="ignore")
             self.pandas_df[self.costs] = pd.to_numeric(self.pandas_df[self.costs], errors="ignore")
-            self.pandas_df["profit"] = self.pandas_df[self.sales]-self.pandas_df[self.costs]
-            self.pandas_df["percent_profit"] = (self.pandas_df["profit"]/self.pandas_df[self.sales])*100
+            self.pandas_df["profit"] = self.pandas_df[self.sales] - self.pandas_df[self.costs]
+            self.pandas_df["percent_profit"] = (self.pandas_df["profit"] / self.pandas_df[self.sales]) * 100
         except Exception as e:
             print(e)
 
 
-def saveData():
+def saveData(overwrite=True):
     data = session.get("preview_dataframe")
     user = session.get("account")
 
@@ -76,14 +76,18 @@ def saveData():
                                     materials_field=data_obj.materials)
     data_obj.update_percent_profit()
 
-    createDataTable(user_id=user["user_id"],
-                    table_name=data_obj.table_name,
-                    table_obj=data_obj.pandas_df,
-                    dates=data_obj.dates,
-                    costs=data_obj.costs,
-                    sales=data_obj.sales,
-                    labor=data_obj.labor,
-                    materials=data_obj.materials,)
+    final_data = createDataTable(user_id=user["user_id"],
+                                 table_name=data_obj.table_name,
+                                 table_obj=data_obj.pandas_df,
+                                 dates=data_obj.dates,
+                                 costs=data_obj.costs,
+                                 sales=data_obj.sales,
+                                 labor=data_obj.labor,
+                                 materials=data_obj.materials,
+                                 get_name=True)
+
+    if not overwrite:
+        return final_data
 
 
 @app.route('/create_db', methods=["GET"])
@@ -219,7 +223,8 @@ def data_import():
 
 @app.route('/preview-data', methods=["GET", "POST"])
 def preview_data():
-    messages=None
+    username = session.get("account")
+    messages = None
     if request.method == "POST":
         title = request.form.get("data-title")
         date_col = request.form.get("date-column")
@@ -241,8 +246,20 @@ def preview_data():
         action = request.form["submit-btn"]
         if action == "Save & Analyze":
             try:
-                saveData()
-                return redirect("/active-dashboard", code=307)
+                table_name = saveData(overwrite=False)
+                print(table_name)
+                db_row = UserTables.query.filter_by(user_id=username["user_id"], table_name=table_name).first()
+                print(db_row)
+                json_obj = db_row.data
+                col_mapping = db_row.col_mapping
+                print(col_mapping)
+                json_col_mapping = json.loads(col_mapping)
+                data = session["preview_dataframe"]
+                data["dataframe"] = pd.read_json(json_obj)
+                data["dashboard_config"] = {"project_name": table_name,
+                                            "fields": json_col_mapping,
+                                            }
+                return redirect("/active-dashboard")
             except Exception as e:
                 message = "Please follow upload instructions. " \
                           "If the issue persists, report the following error to dev support:"
@@ -256,7 +273,6 @@ def preview_data():
                           "If the issue persists, report the following error to dev support:"
                 messages = [message, e]
     data = session.get("preview_dataframe")
-    username = session.get("account")
     preview_dataframe = data["dataframe"]
     table = create_table(preview_dataframe.loc[:100])
     return render_template('preview_data.html', data=data, table=table, user=username, messages=messages)
@@ -264,8 +280,40 @@ def preview_data():
 
 @app.route('/active-dashboard', methods=["GET", "POST"])
 def active_dashboard():
-    data = session.get("preview_dataframe")
     user = session.get("account")
+
+    if request.method == "POST":
+        action = request.form.get("dashboard-action")
+        if action.startswith("add_record_"):
+            table_name = action.split("add_record_")[1]
+            date = request.form.get("add-record-date")
+            sales = request.form.get("add-record-sales")
+            materials = request.form.get("add-record-materials")
+            labor = request.form.get("add-record-labor")
+            costs = request.form.get("add-record-costs")
+
+            addRecord(user_id=user["user_id"],
+                      table_name=table_name,
+                      date=date,
+                      sales=sales,
+                      materials=materials,
+                      labor=labor,
+                      costs=costs)
+
+            db_row = UserTables.query.filter_by(user_id=user["user_id"], table_name=table_name).first()
+            # print(db_row)
+            json_obj = db_row.data
+            col_mapping = db_row.col_mapping
+            # print(col_mapping)
+            json_col_mapping = json.loads(col_mapping)
+            data = session["preview_dataframe"]
+            data["dataframe"] = pd.read_json(json_obj)
+            data["dashboard_config"] = {"project_name": table_name,
+                                        "fields": json_col_mapping,
+                                        }
+            return redirect('/active-dashboard')
+
+    data = session.get("preview_dataframe")
 
     data_obj = CurrentData()
     data_obj.extract_data(data)
@@ -289,11 +337,12 @@ def active_dashboard():
                                                 )
     line = create_line_plot(pandas_df, dates, sales)
     table = create_table(pandas_df.loc[:100])
-    session["dashboard_objects"] = {"kpis": [total_sales_kpi, summary_stats],
+    session["dashboard_objects"] = {"kpis": [total_sales_kpi],
                                     "visuals": {"bar": bar,
                                                 "line": line,
                                                 "table": table,
-                                                "ml_graph": ml_graph}}
+                                                "ml_graph": ml_graph},
+                                    "anomalies": {"stats": summary_stats}}
     visual_objects = session.get("dashboard_objects")
 
     return render_template('active_dashboard.html', data=data, user=user, objects=visual_objects)

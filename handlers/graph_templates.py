@@ -101,24 +101,48 @@ def anomaly_detection(dat, columns, verbose=False):
     low_anom = dat[(dat['anomaly'] == True) & (dat["percent_profit"] < dat["percent_profit"].median())]
     high_anom = dat[(dat['anomaly'] == True) & (dat["percent_profit"] >= dat["percent_profit"].median())]
 
-    summary_stats = []
-    section_prompt = f"Below are some details on your jobs that have unusually low percent profit:\n"
-    stat_one = f"Average Sales Price: ${np.round(low_anom[columns['sales']].mean(), 2)}"
-    stat_two = f"Average Labor Cost (Percent of Sales): {np.round(low_anom[columns['labor']].mean() / low_anom[columns['sales']].mean() * 100, 2)}%"
-    stat_three = f"Average Paint Cost (Percent of Sales): {np.round(low_anom[columns['materials']].mean() / low_anom[columns['sales']].mean() * 100, 2)}%"
+    summary_stats = {"Low Percent Profit":{},
+                     "High Percent Profit": {}}
 
-    section_one = [section_prompt, stat_one, stat_two, stat_three]
-    summary_stats.append(section_one)
+    lpp_prompt = "Low Percent Profit:"
+    lpp_stat_one_prompt = f"Avg Sales Price: "
+    lpp_stat_one_metric = f"${np.round(low_anom[columns['sales']].mean(), 2)}"
+    lpp_stat_two_prompt = f"Avg Labor Cost (% Sales): "
+    lpp_stat_two_metric = f"{np.round(low_anom[columns['labor']].mean() / low_anom[columns['sales']].mean() * 100, 2)}%"
+    lpp_stat_three_prompt = f"Avg Paint Cost (% Sales): "
+    lpp_stat_three_metric = f"{np.round(low_anom[columns['materials']].mean() / low_anom[columns['sales']].mean() * 100, 2)}%"
+
+    summary_stats["Low Percent Profit"]["Top Prompt"] = lpp_prompt
+
+    summary_stats["Low Percent Profit"]["Stat (1) Prompt"] = lpp_stat_one_prompt
+    summary_stats["Low Percent Profit"]["Stat (1) Metric"] = lpp_stat_one_metric
+
+    summary_stats["Low Percent Profit"]["Stat (2) Prompt"] = lpp_stat_two_prompt
+    summary_stats["Low Percent Profit"]["Stat (2) Metric"] = lpp_stat_two_metric
+
+    summary_stats["Low Percent Profit"]["Stat (3) Prompt"] = lpp_stat_three_prompt
+    summary_stats["Low Percent Profit"]["Stat (3) Metric"] = lpp_stat_three_metric
 
     # NOTE: Could add things like "Most of these jobs are interior cabinet jobs"
 
-    section_prompt = f"\n Below are some details on your jobs that have unusually high percent profit:"
-    stat_one = f"Average Sales Price: ${np.round(high_anom[columns['sales']].mean(), 2)}"
-    stat_two = f"Average Labor Cost (Percent of Sales): {np.round(high_anom[columns['labor']].mean() / high_anom[columns['sales']].mean() * 100, 2)}%"
-    stat_three = f"Average Paint Cost (Percent of Sales): {np.round(high_anom[columns['materials']].mean() / high_anom[columns['sales']].mean() * 100, 2)}%"
+    hpp_prompt = f"High Percent Profit:"
+    hpp_stat_one_prompt = f"Avg Sales Price: "
+    hpp_stat_one_metric = f"${np.round(high_anom[columns['sales']].mean(), 2)}"
+    hpp_stat_two_prompt = f"Avg Labor Cost (% Sales): "
+    hpp_stat_two_metric = f"{np.round(high_anom[columns['labor']].mean() / high_anom[columns['sales']].mean() * 100, 2)}%"
+    hpp_stat_three_prompt = f"Avg Paint Cost (% Sales): "
+    hpp_stat_three_metric = f"{np.round(high_anom[columns['materials']].mean() / high_anom[columns['sales']].mean() * 100, 2)}%"
 
-    section_two = [section_prompt, stat_one, stat_two, stat_three]
-    summary_stats.append(section_two)
+    summary_stats["High Percent Profit"]["Top Prompt"] = hpp_prompt
+
+    summary_stats["High Percent Profit"]["Stat (1) Prompt"] = hpp_stat_one_prompt
+    summary_stats["High Percent Profit"]["Stat (1) Metric"] = hpp_stat_one_metric
+
+    summary_stats["High Percent Profit"]["Stat (2) Prompt"] = hpp_stat_two_prompt
+    summary_stats["High Percent Profit"]["Stat (2) Metric"] = hpp_stat_two_metric
+
+    summary_stats["High Percent Profit"]["Stat (3) Prompt"] = hpp_stat_three_prompt
+    summary_stats["High Percent Profit"]["Stat (3) Metric"] = hpp_stat_three_metric
 
     return graphJSON, summary_stats
     # We can also have an option for them to look at the anomalies

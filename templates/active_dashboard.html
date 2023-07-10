@@ -14,9 +14,10 @@
             </a>
         </button>
         <div class="main-btns">
-            <button class="action-btn" onclick="showPage('main-page')">Main Board</button>
-            <button class="action-btn" onclick="showPage('anomaly-page')">Deep Dive</button>
-            <button class="action-btn" onclick="showPage('table-page')">View Table</button>
+            <button class="action-btn active-btn" onclick="showPage('main-page', 'main-board-btn')" id="main-board-btn">Main Board</button>
+            <button class="action-btn" onclick="showPage('deep-dive-page', 'deep-dive-btn')" id="deep-dive-btn">Deep Dive</button>
+            <button class="action-btn" onclick="showPage('table-page', 'view-table-btn')" id="view-table-btn">View Table</button>
+            <button class="action-btn" onclick="showPage('add-record-page', 'add-record-btn')" id="add-record-btn">+</button>
         </div>
         <button class="setting-btn action-btn">
             <img src="{{ url_for("static", filename="site_images/gear_icon.png") }}" alt="" width="30px">
@@ -66,20 +67,94 @@
             </div>
         </div>
 
+        <div class="deep-dive-page" id="deep-dive-page">
+            <h2>Analytic Pools</h2>
+            <div class="deep-dive-nav-container">
+                <div class="pool-option-container">
+                    <img src="{{ url_for("static", filename="site_images/job_profit_icon.png") }}" width="60px" alt="">
+                    <button class="deep-dive-btn" onclick="showPage('anomaly-page', 'deep-dive-btn')">Job Profits</button>
+                </div>
+                <div class="pool-option-container">
+                    <img src="{{ url_for("static", filename="site_images/deep_dive_placeholder_icon.png") }}" width="60px" alt="">
+                    <button class="deep-dive-btn">More Analysis...</button>
+                </div>
+                <div class="pool-option-container">
+                    <img src="{{ url_for("static", filename="site_images/deep_dive_placeholder_icon.png") }}" width="60px" alt="">
+                    <button class="deep-dive-btn">More Analysis...</button>
+                </div>
+            </div>
+
+        </div>
+
         <div class="anomaly-container" id="anomaly-page">
-            <h2>Anomaly detection results...</h2>
-            <div class="ml-chart" id="mlgraph">
+            <div class="job-profit-top-container">
+                <h2 class="anomaly-page-title">Job Profits | <span style="font-weight: lighter; font-style: italic">Analysis</span></h2>
+                <div class="ml-chart" id="mlgraph">
+                </div>
             </div>
             <div class="summary-stats">
-                {% for i in range(objects["kpis"][1]|length) %}
-                    <div>
-                        {% for x in range(objects["kpis"][1][i]|length) %}
-                            {{ objects["kpis"][1][i][x] }}<br>
-                        {% endfor %}
-                    </div>
-                {% endfor %}
+                <div class="lpp-stats make-card">
+                    <h3 class="init-prompt">{{ objects["anomalies"]["stats"]["Low Percent Profit"]["Top Prompt"] }}</h3>
+                    <ul>
+                        <li>
+                            {{ objects["anomalies"]["stats"]["Low Percent Profit"]["Stat (1) Prompt"] }}
+                            <span class="job-profit-metric">{{ objects["anomalies"]["stats"]["Low Percent Profit"]["Stat (1) Metric"] }}</span>
+                        </li>
+                        <li>
+                            {{ objects["anomalies"]["stats"]["Low Percent Profit"]["Stat (2) Prompt"] }}
+                            <span class="job-profit-metric">{{ objects["anomalies"]["stats"]["Low Percent Profit"]["Stat (2) Metric"] }}</span>
+                        </li>
+                        <li>
+                            {{ objects["anomalies"]["stats"]["Low Percent Profit"]["Stat (3) Prompt"] }}
+                            <span class="job-profit-metric">{{ objects["anomalies"]["stats"]["Low Percent Profit"]["Stat (3) Metric"] }}</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="hpp-stats make-card">
+                    <h3 class="init-prompt">{{ objects["anomalies"]["stats"]["High Percent Profit"]["Top Prompt"] }}</h3>
+                    <ul>
+                        <li>
+                            {{ objects["anomalies"]["stats"]["High Percent Profit"]["Stat (1) Prompt"] }}
+                            <span class="job-profit-metric">{{ objects["anomalies"]["stats"]["High Percent Profit"]["Stat (1) Metric"] }}</span>
+                        </li>
+                        <li>
+                            {{ objects["anomalies"]["stats"]["High Percent Profit"]["Stat (2) Prompt"] }}
+                            <span class="job-profit-metric">{{ objects["anomalies"]["stats"]["High Percent Profit"]["Stat (2) Metric"] }}</span>
+                        </li>
+                        <li>
+                            {{ objects["anomalies"]["stats"]["High Percent Profit"]["Stat (3) Prompt"] }}
+                            <span class="job-profit-metric">{{ objects["anomalies"]["stats"]["High Percent Profit"]["Stat (3) Metric"] }}</span>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
+    <div class="add-record-page" id="add-record-page">
+            <h2>Update {{ data["dashboard_config"]["project_name"] }}</h2>
+            <div class="quick-data-add-container make-card">
+                <h3>Add a record</h3>
+                <form action="" method="post">
+                    <div class="add-record-input-container" id="add-record-form">
+                        <label for="add-record-date">Date</label>
+                        <input name="add-record-date" type="date">
+
+                        <label for="add-record-sales">Sales</label>
+                        <input name="add-record-sales" type="number">
+
+                        <label for="add-record-materials">Materials</label>
+                        <input name="add-record-materials" type="number">
+
+                        <label for="add-record-labor">Labor</label>
+                        <input name="add-record-labor" type="number">
+
+                        <label for="add-record-costs">Total Costs</label>
+                        <input name="add-record-costs" type="number">
+                        <button type="submit" value="add_record_{{ data["dashboard_config"]["project_name"] }}" name="dashboard-action" class="add-record-submit-btn">Add record</button>
+                    </div>
+                </form>
+            </div>
+
+    </div>
 
     </div>
 
@@ -92,14 +167,22 @@
     Plotly.plot('table',table,{});
     var ml_graph = {{objects["visuals"]["ml_graph"]  | safe}};
     Plotly.plot('mlgraph',ml_graph,{});
-    let pages = ["main-page", "table-page", "anomaly-page"]
-    function showPage(current_page){
+    let pages = ["main-page", "table-page", "deep-dive-page", "add-record-page", "anomaly-page"];
+    let buttons = ["main-board-btn", "deep-dive-btn", "view-table-btn", "add-record-btn"];
+    function showPage(current_page, active_btn){
         for(let i=0;i<pages.length;i++){
          let page = document.getElementById(pages[i]);
          page.style.display = "none";
         }
+        for(let i=0;i<buttons.length;i++){
+            let button = document.getElementById(buttons[i]);
+            button.classList.remove('active-btn')
+        }
         let get_page = document.getElementById(current_page);
         get_page.style.display = "flex";
+        let get_button = document.getElementById(active_btn);
+        get_button.classList.add('active-btn')
     }
+
 </script>
 {% endblock %}

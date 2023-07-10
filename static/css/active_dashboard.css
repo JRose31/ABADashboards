@@ -16,7 +16,8 @@
     flex-direction: column;
     height: 100vh;
     width: 10vw;
-    background-color: #909090;
+    background-color: #a5a5a5;
+    box-shadow: #6D6D6D 1px 0 3px;
 }
 
 .home-btn{
@@ -34,7 +35,7 @@
 
 .action-btn{
     width: 10vw;
-    background-color: #858585;
+    background-color: #9f9f9f;
     font-size: 16px;
     color: #c7c7c7;
     text-align: center;
@@ -43,6 +44,11 @@
 }
 
 .main-btns .action-btn:hover{
+    background-color: #6e6e6e;
+    color: white;
+}
+
+.active-btn{
     background-color: #6e6e6e;
     color: white;
 }
@@ -214,22 +220,114 @@
     /*border: crimson solid 3px;*/
 }
 
-.ml-chart{
-    height: 35vh;
+.deep-dive-page{
+    display: none;
+    height: 85vh;
+    width: 85vw;
+    flex-direction: column;
+    margin-left: 20px;
+
 }
 
-.summary-stats{
+.deep-dive-nav-container{
     display: flex;
-    height: 15vh;
+    width: 65vw;
+    height: 40vh;
+    padding: 0 15px 0 15px;
+    justify-content: space-between;
+    align-self: center;
+    /*border: blue solid 2px;*/
+}
+
+.deep-dive-btn{
+    font-size: 18px;
+    border: none;
+    background-color: indianred;
+    color: white;
+}
+
+.deep-dive-btn:hover{
+    background-color: #973633;
+    box-shadow: #6D6D6D -1px 0 3px;
+}
+
+.pool-option-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+    /*border: red solid 2px;*/
+}
+
+.pool-option-container img{
+    margin-bottom: 20px;
 }
 
 .anomaly-container{
     display: none;
     height: 85vh;
-    width: 90vw;
+    width: 85vw;
+    /*border: red solid 2px;*/
     flex-direction: column;
     background-color: white;
-    align-self: center;
+    margin-left: 20px;
+    /*align-self: center;*/
 
+}
+
+.job-profit-top-container{
+    align-self: center;
+}
+
+
+.ml-chart{
+    height: 35vh;
+    width: 60vw;
+    /*align-self: center;*/
+}
+
+.summary-stats{
+    display: flex;
+    height: fit-content;
+    width: 50vw;
+    align-self: center;
+    margin-top: 30px;
+    justify-content: space-between;
+}
+
+.hpp-stats, .lpp-stats{
+    padding-right: 20px;
+}
+
+.lpp-stats .init-prompt{
+    font-weight: bolder;
+    color: red;
+    text-align: center;
+}
+
+.lpp-stats ul, .hpp-stats ul{
+    list-style: none;
+    line-height: 1.5;
+}
+
+.hpp-stats .init-prompt{
+    font-weight: bolder;
+    color: forestgreen;
+    text-align: center;
+}
+
+.job-profit-metric{
+    font-weight: bold;
+    color: black;
+}
+
+.add-record-page{
+    display: none;
+}
+
+.quick-data-add-container{
+    height: 50vh;
+    display: flex;
+    flex-direction: column;
 }
 
