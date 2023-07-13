@@ -97,9 +97,14 @@
 }
 
 .nav-dashboard-name{
-    font-size: 20px;
+    font-size: 24px;
     font-weight: bold;
+    text-shadow: #6D6D6D 1px 0px 3px;
     margin-left: 15px;
+    display: flex;
+    color: black;
+    width: 100%;
+    /*border: red solid 2px;*/
 }
 
 .right-navbar{
@@ -108,6 +113,7 @@
     justify-content: end;
     align-items: center;
     padding-right: 15px;
+    /*border: red solid 2px;*/
 }
 
 .logout-btn{
@@ -134,18 +140,61 @@
 
 .top-row{
     display: flex;
-    width: 80vw;
+    width: 90vw;
     height: 40vh;
     /*border: crimson solid 3px;*/
+}
+
+.kpi-row{
+    /*display: flex;*/
+    /*flex-direction: column;*/
+    /*height: 30vh;*/
+    /*border: orange solid 3px;*/
 }
 
 .details-container{
     display: flex;
     flex-direction: column;
-    height: 40vh;
-    margin-left: 30px;
-    width: 30vw;
+    height: fit-content;
+    margin-left: 25px;
+    width: 20vw;
+    padding-left: 25px;
+    padding-bottom: 15px;
+    /*align-self: center;*/
     /*border: crimson solid 3px;*/
+}
+
+.total-sales-kpi-container, .avg-pp-kpi-container{
+    display: flex;
+    flex-direction: column;
+    margin-top: 15px;
+}
+
+.kpi-label{
+    font-size: 20px;
+    font-weight: 500;
+}
+.kpi-number{
+    margin-top: 2px;
+    font-size: 23px;
+    font-weight: bolder;
+    margin-left: 35px;
+    color: black;
+}
+
+.deep-dive-sub-btn{
+    font-size: 12px;
+    margin-top: 5px;
+    margin-left: 15px;
+    width: 120px;
+    border: none;
+    background-color: #7a7a7a;
+    color: white;
+}
+
+.deep-dive-sub-btn:hover{
+    background-color: black;
+    box-shadow: #6e6e6e -1px 0 3px;
 }
 
 .sales-graph-container{
@@ -158,11 +207,15 @@
 
 .sales-graph-container h3{
     height: 2vh;
+    margin-left: 15px;
+}
+.sales-graph-container h3 em{
+    font-weight: normal;
 }
 
 .line-chart{
     height: 38vh;
-    width: 50vw;
+    width: 60vw;
     /*border: orange solid 3px;*/
 }
 
@@ -208,14 +261,18 @@
     width: 85vw;
     height: 43vh;
     margin-left: 30px;
+    justify-items: flex-start;
     /*border: purple solid 3px;*/
 }
 
 .bar-chart-container h3{
-    height: 1vh;
+    height: 2vh;
+    margin-left: 15px;
+    /*border: #4D87F4 solid 2px;*/
+    margin-top: 0;
 }
 .bar-chart{
-    height: 42vh;
+    height: 38vh;
     width: 46vw;
     /*border: crimson solid 3px;*/
 }

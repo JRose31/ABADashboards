@@ -1,4 +1,5 @@
 from .database import db
+from sqlalchemy.sql import func
 import json
 import pandas as pd
 
@@ -19,6 +20,8 @@ class UserTables(db.Model):
     table_name = db.Column(db.String(100))
     data = db.Column(db.JSON)
     col_mapping = db.Column(db.JSON)
+    date_created = db.Column(db.DateTime, server_default=func.now())
+    last_updated = db.Column(db.DateTime, server_default=func.now(), onupdate=func.now())
 
     def __init__(self, user_id, table_name, data, col_mapping):
         self.user_id = user_id

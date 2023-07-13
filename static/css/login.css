@@ -1,3 +1,25 @@
+.logo-container{
+    height: 12vh;
+}
+
+.navbar{
+    height: 3vh;
+    box-shadow: #6D6D6D 0 5px 5px;
+}
+
+.logo-text{
+    font-size: 36px;
+    color: white;
+    font-weight: lighter;
+    /*text-shadow: #4B4B4B -1px 0 2px;*/
+}
+
+.logo-container sup{
+    text-shadow: none;
+    font-size: 19px;
+    font-weight: lighter;
+}
+
 .graphic-container{
     display: flex;
     flex-direction: column;
@@ -21,4 +43,25 @@
 input{
     margin-bottom: 10px;
     font-size: 16px;
+}
+
+.register-container{
+    display: flex;
+    font-size: 15px;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.register-container button{
+    border: none;
+    background-color: #6C92DE;
+    color: white;
+    margin-left: 15px;
+    padding: 5px 5px 5px 5px;
+
+}
+
+.register-container button:hover{
+    box-shadow: #6D6D6D -1px 1px 5px;
+    background-color: #467BDE;
 }

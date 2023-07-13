@@ -40,37 +40,40 @@ html, body{
 }
 
 .logo-container{
-    height: 9vh;
+    height: 8vh;
     padding-left: 10px;
     display: flex;
     align-items: center;
+    justify-content: center;
+    background-color: #467BDE;
 }
 
 .logo-text{
-    font-size: 26px;
-    color: #7c7c7c;
-    font-weight: bolder;
+    font-size: 25px;
+    color: white;
+    font-weight: lighter;
     /*text-shadow: #4B4B4B -1px 0 2px;*/
 }
 
 .logo-container sup{
     text-shadow: none;
-    color: #6e6e6e;
     font-size: 14px;
+    font-weight: lighter;
 }
 
 .navbar{
     display: flex;
     width: 100vw;
-    height: 6vh;
-    background-color: #467BDE;
+    height: 7vh;
+    background-color: black;
     align-items: center;
     justify-content: end;
     color: white;
+    box-shadow: #6D6D6D 0 5px 5px;
 }
 
 .navbar-buttons{
-    height: 6vh;
+    height: 7vh;
     font-size: 16px;
     /*border-radius: 5px;*/
     background-color: transparent;
@@ -82,7 +85,7 @@ html, body{
 }
 
 .navbar-buttons:hover{
-    background-color: rgba(2, 70, 184, 0.75);
+    background-color: #467BDE;
 }
 
 .logout-btn{

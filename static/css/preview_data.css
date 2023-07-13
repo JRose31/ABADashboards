@@ -1,7 +1,7 @@
 .navbar{
     display: flex;
     width: 100vw;
-    height: 6vh;
+    height: 7vh;
     justify-content: space-between;
 }
 .right-navbar{

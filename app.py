@@ -190,7 +190,7 @@ def home():
 
     user_datasets = UserTables.query.filter_by(user_id=user_info["user_id"]).all()
     if len(user_datasets) > 0:
-        user_tables = [table.table_name for table in user_datasets]
+        user_tables = [[table.table_name, table.last_updated] for table in user_datasets]
         return render_template('home.html', user=user_info, projects=user_tables)
     return render_template('home.html', user=user_info, projects=None)
 

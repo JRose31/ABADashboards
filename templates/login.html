@@ -4,7 +4,6 @@
     <link rel="stylesheet" href="{{ url_for("static", filename="css/login.css") }}">
 {% endblock %}
 {% block navbar %}
-    <a href="/register"><button class="navbar-buttons">Register</button></a>
 {% endblock %}
 {% block content %}
         <div class="graphic-container">
@@ -17,6 +16,10 @@
                 <input type="password" name="password" placeholder="Password"><br>
                 <input type="submit" value="Login">
             </form>
+        <div class="register-container">
+            <p>Don't have an account?</p>
+            <a href="/register"><button>Sign Up</button></a>
+        </div>
             {% if message %}
                 {{ message }}
             {% endif %}

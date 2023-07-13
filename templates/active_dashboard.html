@@ -25,7 +25,7 @@
     </div>
     <div class="content-container">
         <div class="content-header">
-            <h2 class="nav-dashboard-name">{{data["dashboard_config"]["project_name"]}}</h2>
+            <span class="nav-dashboard-name">{{data["dashboard_config"]["project_name"]}}</span>
             <div class="right-navbar">
                 <span>{{ user["email"] }}</span>
                 <a href="/"><button class="navbar-buttons logout-btn">Logout</button></a>
@@ -34,17 +34,19 @@
 
         <div class="main-dashboard" id="main-page">
             <div class="top-row">
-                <div class="details-container">
-{#                    <div class="dashboard-title">#}
-{#                        <h2>{{data["dashboard_config"]["project_name"]}}</h2>#}
-{#                    </div>#}
-                    <div class="kpi-row">
-                        <h3 class="kpi-label">Total Sales:</h3>
-                        <h2 class="kpi-number">{{ objects["kpis"][0]  }}</h2>
+                <div class="details-container make-card">
+                    <div class="total-sales-kpi-container">
+                        <span class="kpi-label">Total Sales:</span>
+                        <span class="kpi-number">{{ objects["kpis"][0] }}</span>
+                    </div>
+                    <div class="avg-pp-kpi-container">
+                        <span class="kpi-label">Avg % Profit:</span>
+                        <span class="kpi-number">In progress...</span>
+{#                        <button onclick="showPage('anomaly-page', 'deep-dive-btn')" class="deep-dive-sub-btn"><em>More on % profit...</em></button>#}
                     </div>
                 </div>
                 <div class="sales-graph-container">
-                    <h3>Sales timeline (DATES)</h3>
+                    <h3>Sales timeline <em>Loading date range...</em></h3>
                     <div class="line-chart" id="linegraph">
                     </div>
                 </div>

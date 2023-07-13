@@ -1,14 +1,24 @@
 .navbar{
     display: flex;
     width: 100vw;
-    height: 6vh;
     justify-content: space-between;
+}
+
+.logo-container{
+    height: 15vh;
 }
 
 .right-navbar{
     display: flex;
     justify-content: end;
     align-items: center;
+}
+
+.beta-sup{
+    font-size: 12px;
+    font-style: italic;
+    font-weight: bold;
+    color: #ffa351;
 }
 
 .content{
@@ -70,6 +80,7 @@
     overflow-y: scroll;
     margin-right: 5px;
     border-bottom: rgba(179,179,179,0.57) solid 1px;
+    border-top: rgba(179,179,179,0.57) solid 1px;
     /*border: solid red 1px;*/
 }
 
@@ -78,7 +89,6 @@
     padding-top: 20px;
     padding-bottom: 20px;
     padding-left: 10px;
-    border-bottom: rgba(179,179,179,0.57) solid 1px;
 }
 
 .project-details-container{
@@ -91,9 +101,12 @@
 .detail-rows{
     margin: 0;
     padding: 0;
+    font-size: 14px;
 }
 
 .project-load-date{
+    font-size: 12px;
+    font-style: italic;
     font-weight: lighter;
 }
 
@@ -104,8 +117,8 @@
 
 .thumbnail-btn{
     background-color: white;
-    border-radius: 10px;
-    border: solid 5px transparent;
+    border-radius: 5px;
+    border: solid 3px rgba(0,0,0,0.6);
     opacity: 60%;
 }
 
@@ -115,12 +128,21 @@
 
 .thumbnail-btn:hover{
     cursor: pointer;
-    border: rgba(77,135,244,0.8) solid 5px;
-    border-radius: 10px;
-    box-shadow: #6D6D6D -2px 2px 5px;
+    border: black solid 3px;
+    border-radius: 5px;
+    box-shadow: #6D6D6D -2px 0 2px;
     opacity: 100%;
 }
 
+.thumbnail-btn:hover ~ .project-details-container .thumbnail-label{
+    color: black;
+    text-shadow: #858585 -1px 0 2px;
+}
+
+.thumbnail-btn:hover ~ .project-details-container .detail-rows{
+    color: black;
+    font-weight: bold;
+}
 .main-action-btns{
     display: flex;
     width: 100%;
@@ -133,7 +155,7 @@
     padding: 5px 10px 5px 10px;
     border-radius: 2px;
     background-color: #7a7a7a;
-    color: #c3c3c3;
+    color: #d7d7d7;
 }
 
 .project-options:hover{
@@ -144,6 +166,7 @@
     background-color: #4D87F4;
     color: white;
 }
+
 
 .edit-btn:hover{
     background-color: #6D6D6D;
