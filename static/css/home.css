@@ -159,6 +159,7 @@
 }
 
 .project-options:hover{
+    cursor: pointer;
     box-shadow: #6D6D6D -2px 2px 1px;
 }
 

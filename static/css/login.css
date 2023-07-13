@@ -45,6 +45,26 @@ input{
     font-size: 16px;
 }
 
+.login-btn{
+    border: none;
+    background-color: #6C92DE;
+    color: white;
+    padding: 5px 8px 5px 8px;
+}
+
+.login-btn:hover{
+    cursor: pointer;
+    box-shadow: #6D6D6D -1px 1px 5px;
+    background-color: #467BDE;
+    color: white;
+}
+
+.login-message{
+    color: #d26149;
+    font-style: italic;
+    font-size: 14px;
+}
+
 .register-container{
     display: flex;
     font-size: 15px;
@@ -54,14 +74,16 @@ input{
 
 .register-container button{
     border: none;
-    background-color: #6C92DE;
-    color: white;
+    background-color: #a5a5a5;
+    color: #eeeeee;
     margin-left: 15px;
-    padding: 5px 5px 5px 5px;
+    padding: 5px 7px 5px 7px;
 
 }
 
 .register-container button:hover{
+    cursor: pointer;
     box-shadow: #6D6D6D -1px 1px 5px;
-    background-color: #467BDE;
+    background-color: black;
+    color: white;
 }

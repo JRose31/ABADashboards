@@ -10,19 +10,21 @@
             <img src="{{ url_for("static", filename="site_images/intro_graphic.png") }}" alt="" width="550px">
         </div>
         <div class="login-container make-card">
-            <h3>Account Login</h3>
+            <h3>User Login</h3>
             <form action="" method="post">
                 <input type="email" name="email" placeholder="Email"><br>
                 <input type="password" name="password" placeholder="Password"><br>
-                <input type="submit" value="Login">
+                <input type="submit" value="Login" class="login-btn">
             </form>
-        <div class="register-container">
-            <p>Don't have an account?</p>
-            <a href="/register"><button>Sign Up</button></a>
-        </div>
             {% if message %}
-                {{ message }}
+                <div class="login-message">
+                    {{ message }}
+                </div>
             {% endif %}
+            <div class="register-container">
+                <p>Don't have an account?</p>
+                <a href="/register"><button>Sign Up</button></a>
+            </div>
         </div>
 
 {% endblock %}
