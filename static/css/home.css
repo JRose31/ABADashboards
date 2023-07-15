@@ -128,7 +128,7 @@
 .thumbnail-btn{
     background-color: white;
     border-radius: 5px;
-    border: solid 3px rgba(0,0,0,0.6);
+    /*border: solid 3px rgba(0,0,0,0.6);*/
     opacity: 60%;
 }
 
@@ -138,9 +138,9 @@
 
 .thumbnail-btn:hover{
     cursor: pointer;
-    border: black solid 3px;
-    border-radius: 5px;
-    box-shadow: #6D6D6D -2px 0 2px;
+    /*border: black solid 2px;*/
+    /*border-radius: 5px;*/
+    /*box-shadow: #6D6D6D -2px 0 2px;*/
     opacity: 100%;
 }
 

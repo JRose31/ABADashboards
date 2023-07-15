@@ -23,7 +23,7 @@
             {% if projects %}
                 {% for project in projects %}
                     <div class="thumbnail-container">
-                        <button class="thumbnail-btn" type="submit" name="project_button" value="{{ project[0] }}">
+                        <button class="thumbnail-btn make-card" type="submit" name="project_button" value="{{ project[0] }}">
                             <img src="{{ url_for("static", filename="site_images/dashboard_thumbnail.png") }}" alt="submit" width="70px"/>
                         </button>
                         <div class="project-details-container">
