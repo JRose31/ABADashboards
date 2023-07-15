@@ -16,7 +16,7 @@
     flex-direction: column;
     height: 100vh;
     width: 10vw;
-    background-color: #a5a5a5;
+    background-color: black;
     box-shadow: #6D6D6D 1px 0 3px;
 }
 
@@ -25,32 +25,30 @@
 
 }
 
-.home-btn img{
-    opacity: 50%;
-}
 
-.home-btn img:hover{
-    opacity: 100%;
+
+.home-btn:hover{
+    background-color: #355da7;
 }
 
 .action-btn{
     width: 10vw;
-    background-color: #9f9f9f;
+    background-color: black;
     font-size: 16px;
-    color: #c7c7c7;
+    color: white;
     text-align: center;
     padding: 5px 10px 5px 10px;
     border: none;
 }
 
 .main-btns .action-btn:hover{
-    background-color: #6e6e6e;
-    color: white;
+    background-color: #4D87F4;
+    box-shadow: #6D6D6D 1px 0 3px;
+
 }
 
 .active-btn{
-    background-color: #6e6e6e;
-    color: white;
+    background-color: #4D87F4;
 }
 
 .main-btns{
@@ -71,12 +69,8 @@
     justify-self: end;
 }
 
-.setting-btn img{
-    opacity: 50%;
-}
-
-.setting-btn img:hover{
-    opacity: 100%;
+.setting-btn:hover{
+    background-color: #355da7;
 }
 
 .content-container{
@@ -288,15 +282,18 @@
 
 .deep-dive-nav-container{
     display: flex;
-    width: 65vw;
-    height: 40vh;
+    flex-direction: column;
+    width: 50vw;
+    height: 68vh;
     padding: 0 15px 0 15px;
-    justify-content: space-between;
     align-self: center;
+    overflow-y: scroll;
     /*border: blue solid 2px;*/
 }
 
 .deep-dive-btn{
+    height: fit-content;
+    padding: 10px;
     font-size: 18px;
     border: none;
     background-color: indianred;
@@ -310,14 +307,54 @@
 
 .pool-option-container{
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-top: 20px;
+    min-height: 150px;
+    /*align-items: center;*/
+    /*padding-top: 20px;*/
     /*border: red solid 2px;*/
+    margin-bottom: 25px;
 }
 
 .pool-option-container img{
-    margin-bottom: 20px;
+    height: 90px;
+    /*border: blue solid 2px;*/
+}
+
+.image-container{
+    width: 14vw;
+    height: available;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-right: #6D6D6D solid 1px;
+    /*border: green solid 2px;*/
+
+}
+
+.analytic-details-container{
+    display: flex;
+    flex-direction: column;
+    /*border: green solid 2px;*/
+    align-content: flex-start;
+    padding-left: 15px;
+}
+
+.analytic-title{
+    /*border: black solid 2px;*/
+    font-size: 22px;
+    font-weight: 800;
+    margin-top: 15px;
+    margin-bottom: 0;
+}
+.analytic-details-container p{
+    /*border: black solid 2px;*/
+    margin-top: 10px;
+}
+
+.analytic-details-container button{
+    margin-top: 15px;
+    font-size: 16px;
+    width: fit-content;
+    padding: 5px;
 }
 
 .anomaly-container{

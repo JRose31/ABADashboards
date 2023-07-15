@@ -62,7 +62,7 @@
         </div>
 
         <div class="table-preview-container" id="table-page">
-            <h3>Your data at a glance.</h3>
+            <h2>Your data at a glance.</h2>
             <div class="table-container">
                 <div class="table" id="table">
                 </div>
@@ -70,19 +70,37 @@
         </div>
 
         <div class="deep-dive-page" id="deep-dive-page">
-            <h2>Analytic Pools</h2>
+            <h2>Automated Analytics</h2>
             <div class="deep-dive-nav-container">
-                <div class="pool-option-container">
-                    <img src="{{ url_for("static", filename="site_images/job_profit_icon.png") }}" width="60px" alt="">
-                    <button class="deep-dive-btn" onclick="showPage('anomaly-page', 'deep-dive-btn')">Job Profits</button>
+                <div class="pool-option-container make-card">
+                    <div class="image-container">
+                        <img src="{{ url_for("static", filename="site_images/job_profit_icon.png") }}" width="90px" alt="">
+                    </div>
+                    <div class="analytic-details-container">
+                        <span class="analytic-title">Job Profits</span>
+                        <p>Analytic explained at a high level...</p>
+                        <button class="deep-dive-btn" onclick="showPage('anomaly-page', 'deep-dive-btn')"><div></div>View Analysis</button>
+                    </div>
                 </div>
-                <div class="pool-option-container">
-                    <img src="{{ url_for("static", filename="site_images/deep_dive_placeholder_icon.png") }}" width="60px" alt="">
-                    <button class="deep-dive-btn">More Analysis...</button>
+                <div class="pool-option-container make-card">
+                    <div class="image-container">
+                        <img src="{{ url_for("static", filename="site_images/deep_dive_placeholder_icon.png") }}" width="90px" alt="">
+                    </div>
+                    <div class="analytic-details-container">
+                        <span class="analytic-title">TBD</span>
+                        <p>Analytic explained at a high level...</p>
+                        <button class="deep-dive-btn">View Analysis</button>
+                    </div>
                 </div>
-                <div class="pool-option-container">
-                    <img src="{{ url_for("static", filename="site_images/deep_dive_placeholder_icon.png") }}" width="60px" alt="">
-                    <button class="deep-dive-btn">More Analysis...</button>
+                <div class="pool-option-container make-card">
+                    <div class="image-container">
+                        <img src="{{ url_for("static", filename="site_images/deep_dive_placeholder_icon.png") }}" width="90px" alt="">
+                    </div>
+                    <div class="analytic-details-container">
+                        <span class="analytic-title">TBD</span>
+                        <p>Analytic explained at a high level...</p>
+                        <button class="deep-dive-btn">View Analysis</button>
+                    </div>
                 </div>
             </div>
 

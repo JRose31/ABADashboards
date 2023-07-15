@@ -1,8 +1,9 @@
 .navbar{
     display: flex;
-    width: 100vw;
+    /*width: 100vw;*/
     justify-content: space-between;
 }
+
 
 .logo-container{
     height: 15vh;
@@ -54,22 +55,31 @@
 .quick-data-add-container form{
     display: flex;
     flex-direction: column;
-    height: available;
+    height: 100%;
     /*border: blue solid 3px;*/
 }
 
 .add-record-input-container{
     display: none;
     flex-direction: column;
-    height: available;
+    height: 100%;
+    padding-bottom: 0;
+    padding-top: 8px;
     /*border: solid red 2px;*/
 }
 .add-record-input-container input{
     height: 30px;
+    margin-bottom: 8px;
 }
 
 .add-record-submit-btn{
-    bottom: 5px;
+    align-self: center;
+    width: 100px;
+    margin-top: 10px;
+}
+
+.add-record-submit-btn:hover{
+    background-color: #599b05;
 }
 
 .project-thumbnail-form{
@@ -136,7 +146,7 @@
 
 .thumbnail-btn:hover ~ .project-details-container .thumbnail-label{
     color: black;
-    text-shadow: #858585 -1px 0 2px;
+    text-shadow: #a5a5a5 -1px 0 3px;
 }
 
 .thumbnail-btn:hover ~ .project-details-container .detail-rows{
@@ -154,8 +164,8 @@
     border: none;
     padding: 5px 10px 5px 10px;
     border-radius: 2px;
-    background-color: #7a7a7a;
-    color: #d7d7d7;
+    background-color: #b0b0b0;
+    color: white;
 }
 
 .project-options:hover{
@@ -169,8 +179,8 @@
 }
 
 
-.edit-btn:hover{
-    background-color: #6D6D6D;
+.details-btn:hover{
+    background-color: #d89603;
     color: white;
 }
 
@@ -178,4 +188,28 @@
     background-color: #cb655f;
     color: white;
 }
+
+.details-popout{
+    display: None;
+    flex-direction: column;
+    position: fixed;
+    z-index: 1;
+    background-color: white;
+    box-shadow: #6D6D6D 0 0 5px;
+    justify-self: center;
+    align-self: center;
+    padding: 0 10px 0 10px;
+}
+
+.close-details-btn{
+    margin-top: 5px;
+    margin-right: 5px;
+    width: 60px;
+    align-self: end;
+}
+
+.close-details-btn:hover{
+    background-color: #cb655f;
+}
+
 

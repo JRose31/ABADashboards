@@ -18,7 +18,7 @@
 {% endblock %}
 {% block content %}
     <div class="projects-container make-card">
-        <h2>Recent projects</h2>
+        <h2>Recent Dashboards</h2>
         <form class="project-thumbnail-form" method="post">
             {% if projects %}
                 {% for project in projects %}
@@ -31,17 +31,21 @@
                             <p class="detail-rows">Dashboard last updated: <span class="project-load-date">{{ project[1] }}</span></p>
                             <div class="main-action-btns">
                                 <button class="project-options view-btn" type="submit" name="project_button" value="{{ project[0] }}">View Dashboard</button>
-                                <button class="project-options edit-btn" name="project_button" value="edit_{{ project[0] }}">Details</button>
+                                <button class="project-options details-btn" name="project_button" value="details_{{ project[0] }}" type="button" onclick="viewDetails('details-popout-{{ project[0] }}')">Details</button>
                                 <button class="project-options remove-btn" name="project_button" value="delete_{{ project[0] }}">Remove</button>
                             </div>
                         </div>
+                    </div>
+                    <div class="details-popout" id="details-popout-{{ project[0] }}">
+                        <button type="button" onclick="closeDetails('details-popout-{{ project[0] }}')" class="theme-btn close-details-btn">close</button>
+                        <h3>{{ project[0] }} Details</h3>
                     </div>
                 {% endfor %}
             {% endif %}
         </form>
     </div>
     <div class="quick-data-add-container make-card">
-        <h3>Add a record</h3>
+        <h3>Create New Record</h3>
         <form action="" method="post">
             <select name="table-selection" id="dashboard-selector" onchange="reveal_form()">
                 <option value="none">Select a dashboard.</option>
@@ -67,7 +71,7 @@
                 <label for="add-record-costs">Total Costs</label>
                 <input name="add-record-costs" type="number">
 
-                <input type="submit" name="project_button" value="Add record" class="add-record-submit-btn">
+                <input type="submit" name="project_button" value="Add record" class="add-record-submit-btn theme-btn">
             </div>
         </form>
     </div>
@@ -84,6 +88,16 @@
             add_form.style.display = "none";
             console.log("No dashboard displayed");
         }
+    }
+
+    function viewDetails(details_container){
+        let popout = document.getElementById(details_container);
+        popout.style.display = "flex";
+    }
+
+    function closeDetails(details_container){
+        let popout = document.getElementById(details_container);
+        popout.style.display = "none";
     }
     </script>
 {% endblock %}
