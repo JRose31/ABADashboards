@@ -135,7 +135,7 @@
 .main-dashboard{
     display: flex;
     flex-direction: column;
-    width: 75vw;
+    width: fit-content;
     height: 85vh;
     /*border: solid red 2px;*/
     align-self: center;
@@ -209,7 +209,7 @@
 }
 
 .sales-graph-container h3{
-    height: 2vh;
+    height: fit-content;
     margin-left: 15px;
 }
 .sales-graph-container h3 em{
@@ -219,12 +219,13 @@
 .line-chart{
     height: 38vh;
     width: 60vw;
+    margin-top: 10px;
     /*border: orange solid 3px;*/
 }
 
 .bottom-row{
     display: flex;
-    width: 80vw;
+    width: fit-content;
     height: 43vh;
     /*justify-content: space-between;*/
     /*border: crimson solid 3px;*/
@@ -264,7 +265,7 @@
     justify-items: flex-start;
     /*border: purple solid 3px;*/
     width: 30vw;
-    height: 40vh;
+    height: 38vh;
     margin-left: 50px;
 }
 
@@ -276,7 +277,7 @@
 }
 .pie-chart{
     width: 25vw;
-    height: 30vh;
+    height: 28vh;
     /*border: crimson solid 3px;*/
     align-self: center;
     margin-top: 10px;

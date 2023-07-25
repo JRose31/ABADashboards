@@ -17,12 +17,18 @@ def create_bar_plot(df, costs, labor, materials):
     labels = ['Labor', 'Materials', 'Additional']
     values = [labor_costs, materials_costs, addt_costs]
 
-    data = [go.Pie(labels=labels, values=values, hole=.3)]
+    data = [go.Pie(labels=labels, values=values, hole=.3, sort=False)]
     # Use `hole` to create a donut-like pie chart
     fig = go.Figure(data)
 
     fig.update_layout(
         margin=dict(l=0, r=0, t=0, b=0),
+        legend=dict(
+            yanchor="top",
+            y=.85,
+            xanchor="left",
+            x=-0.5
+        )
     )
 
     graphJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)

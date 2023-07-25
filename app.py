@@ -231,6 +231,7 @@ def active_dashboard():
 
     total_sales_kpi = sum(pandas_df[sales])
     total_sales_kpi = '${:,.2f}'.format(round(total_sales_kpi, 2))
+    avg_perc_profit = f"{round(sum(pandas_df['percent_profit'])/pandas_df.shape[0], 2)}%"
     bar = create_bar_plot(pandas_df, costs, labor, materials)
     ml_graph, summary_stats = anomaly_detection(pandas_df, columns={"date": dates,
                                                                     "sales": sales,
@@ -240,7 +241,8 @@ def active_dashboard():
                                                 )
     line = create_line_plot(pandas_df, dates, sales)
     table = create_table(pandas_df.loc[:100])
-    session["dashboard_objects"] = {"kpis": [total_sales_kpi],
+    session["dashboard_objects"] = {"kpis": {"Total Sales": total_sales_kpi,
+                                             "Avg Percent Profit": avg_perc_profit},
                                     "visuals": {"bar": bar,
                                                 "line": line,
                                                 "table": table,
