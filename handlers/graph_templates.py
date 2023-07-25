@@ -9,18 +9,19 @@ import numpy as np
 
 
 def create_bar_plot(df, costs, labor, materials):
-    df_agg = df[[costs, labor, materials]].sum()
-    data = [
-        go.Bar(
-            x=df_agg.index,  # assign x as the dataframe column 'x'
-            y=df_agg.values,
-        )
-    ]
+    labor_costs = df[labor].sum()
+    materials_costs = df[materials].sum()
+    total_costs = df[costs].sum()
+    addt_costs = total_costs - (labor_costs + materials_costs)
 
+    labels = ['Labor', 'Materials', 'Additional']
+    values = [labor_costs, materials_costs, addt_costs]
+
+    data = [go.Pie(labels=labels, values=values, hole=.3)]
+    # Use `hole` to create a donut-like pie chart
     fig = go.Figure(data)
 
     fig.update_layout(
-        yaxis_tickprefix='$',
         margin=dict(l=0, r=0, t=0, b=0),
     )
 

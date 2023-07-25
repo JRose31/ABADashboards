@@ -8,11 +8,11 @@
 
 {% block content %}
     <div class="action-bar">
-        <button class="home-btn action-btn">
-            <a href="/home">
-                <img src="{{ url_for("static", filename="site_images/back_home.png") }}" alt="" width="40px">
-            </a>
+        <a href="/home">
+        <button class="home-btn action-btn" href="/home">
+                <img src="{{ url_for("static", filename="site_images/back_home.png") }}" alt="" width="30px">
         </button>
+        </a>
         <div class="main-btns">
             <button class="action-btn active-btn" onclick="showPage('main-page', 'main-board-btn')" id="main-board-btn">Main Board</button>
             <button class="action-btn" onclick="showPage('deep-dive-page', 'deep-dive-btn')" id="deep-dive-btn">Deep Dive</button>
@@ -28,7 +28,7 @@
             <span class="nav-dashboard-name">{{data["dashboard_config"]["project_name"]}}</span>
             <div class="right-navbar">
                 <span>{{ user["email"] }}</span>
-                <a href="/"><button class="navbar-buttons logout-btn">Logout</button></a>
+                <button class="logout-btn"><a href="/">Logout</a></button>
             </div>
         </div>
 
@@ -45,17 +45,17 @@
 {#                        <button onclick="showPage('anomaly-page', 'deep-dive-btn')" class="deep-dive-sub-btn"><em>More on % profit...</em></button>#}
                     </div>
                 </div>
-                <div class="sales-graph-container">
-                    <h3>Sales timeline <em>Loading date range...</em></h3>
-                    <div class="line-chart" id="linegraph">
+                <div class="pie-chart-container make-card">
+                    <h3>Cost Analysis</h3>
+                    <div class="pie-chart" id="piechart">
                     </div>
                 </div>
             </div>
 
             <div class="bottom-row">
-                <div class="bar-chart-container">
-                    <h3>Cost Analysis</h3>
-                    <div class="bar-chart" id="bargraph">
+                <div class="sales-graph-container">
+                    <h3>Sales timeline <em>Loading date range...</em></h3>
+                    <div class="line-chart" id="linegraph">
                     </div>
                 </div>
             </div>
@@ -179,8 +179,8 @@
     </div>
 
 <script>
-    var bargraph = {{objects["visuals"]["bar"] | safe}};
-    Plotly.plot('bargraph',bargraph,{});
+    var piechart = {{objects["visuals"]["bar"] | safe}};
+    Plotly.plot('piechart',piechart,{});
     var linegraph = {{objects["visuals"]["line"]  | safe}};
     Plotly.plot('linegraph',linegraph,{});
     var table = {{objects["visuals"]["table"]  | safe}};

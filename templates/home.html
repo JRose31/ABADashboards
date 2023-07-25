@@ -59,17 +59,21 @@
                 <label for="add-record-date">Date</label>
                 <input name="add-record-date" type="date">
 
-                <label for="add-record-sales">Sales</label>
-                <input name="add-record-sales" type="number">
+                <label for="add-record-sales" class="add-record-field">Sales</label>
+                <span class="small-note">Total sale amount.</span>
+                <span class="currencyinput">$<input name="add-record-sales" type='number' step='0.01' value='0.00' placeholder='0.00'></span>
 
-                <label for="add-record-materials">Materials</label>
-                <input name="add-record-materials" type="number">
+                <label for="add-record-materials" class="add-record-field">Materials</label>
+                <span class="small-note">Total cost of materials used.</span>
+                <span class="currencyinput">$<input name="add-record-materials" id="materials-costs" type='number' step='0.01' value='0.00' placeholder='0.00' onchange="updateTotal()"></span>
 
-                <label for="add-record-labor">Labor</label>
-                <input name="add-record-labor" type="number">
+                <label for="add-record-labor" class="add-record-field">Labor</label>
+                <span class="small-note">Total cost of labor.</span>
+                <span class="currencyinput">$<input name="add-record-labor" id="labor-costs" type='number' step='0.01' value='0.00' placeholder='0.00' onchange="updateTotal()"></span>
 
-                <label for="add-record-costs">Total Costs</label>
-                <input name="add-record-costs" type="number">
+                <label for="add-record-costs" class="add-record-field">Total Costs</label>
+                <span class="small-note">Materials, Labor, additional costs.</span>
+                <span class="currencyinput">$<input name="add-record-costs" id="total-cost" type='number' step='0.01' value='0.00' placeholder='0.00'></span>
 
                 <input type="submit" name="project_button" value="Add record" class="add-record-submit-btn theme-btn">
             </div>
@@ -98,6 +102,16 @@
     function closeDetails(details_container){
         let popout = document.getElementById(details_container);
         popout.style.display = "none";
+    }
+
+    function updateTotal(){
+        let materials_total = document.getElementById("materials-costs").value;
+        let labor_total = document.getElementById("labor-costs").value;
+
+        let current_total = parseFloat(materials_total)+parseFloat(labor_total);
+        console.log(current_total)
+        let total_costs = document.getElementById("total-cost");
+        total_costs.value = current_total;
     }
     </script>
 {% endblock %}

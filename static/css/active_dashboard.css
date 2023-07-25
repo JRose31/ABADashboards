@@ -21,7 +21,7 @@
 }
 
 .home-btn{
-    height: 70px;
+    height: 60px;
 
 }
 
@@ -29,6 +29,7 @@
 
 .home-btn:hover{
     background-color: #355da7;
+    cursor: pointer;
 }
 
 .action-btn{
@@ -42,6 +43,7 @@
 }
 
 .main-btns .action-btn:hover{
+    cursor: pointer;
     background-color: #4D87F4;
     box-shadow: #6D6D6D 1px 0 3px;
 
@@ -70,6 +72,7 @@
 }
 
 .setting-btn:hover{
+    cursor: pointer;
     background-color: #355da7;
 }
 
@@ -111,13 +114,17 @@
 }
 
 .logout-btn{
-    width: 6vw;
+    height: fit-content;
     background-color: #858585;
     font-size: 14px;
     color: #c7c7c7;
-    text-align: center;
-    padding: 5px 10px 5px 10px;
     border: none;
+    padding: 5px 10px 5px 10px;
+}
+
+.logout-btn a{
+    text-decoration: none;
+    color: white;
 }
 
 .logout-btn:hover{
@@ -128,13 +135,15 @@
 .main-dashboard{
     display: flex;
     flex-direction: column;
-    width: 80vw;
+    width: 75vw;
     height: 85vh;
+    /*border: solid red 2px;*/
+    align-self: center;
 }
 
 .top-row{
     display: flex;
-    width: 90vw;
+   width: fit-content;
     height: 40vh;
     /*border: crimson solid 3px;*/
 }
@@ -249,26 +258,28 @@
     /*margin: 0;*/
 }
 
-.bar-chart-container{
+.pie-chart-container{
     display: flex;
     flex-direction: column;
-    width: 85vw;
-    height: 43vh;
-    margin-left: 30px;
     justify-items: flex-start;
     /*border: purple solid 3px;*/
+    width: 30vw;
+    height: 40vh;
+    margin-left: 50px;
 }
 
-.bar-chart-container h3{
-    height: 2vh;
-    margin-left: 15px;
+.pie-chart-container h3{
+    height: fit-content;
+    width: fit-content;
+    margin: 10px 0 0 15px;
     /*border: #4D87F4 solid 2px;*/
-    margin-top: 0;
 }
-.bar-chart{
-    height: 38vh;
-    width: 46vw;
+.pie-chart{
+    width: 25vw;
+    height: 30vh;
     /*border: crimson solid 3px;*/
+    align-self: center;
+    margin-top: 10px;
 }
 
 .deep-dive-page{

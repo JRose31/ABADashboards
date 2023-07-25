@@ -1,9 +1,31 @@
-.register-container{
-    align-self: center;
-    margin: 0 auto 20vh auto;
-    align-content: center;
+.info-graphic-container{
+    height: 80vh;
+    width: 50vw;
+    /*border: red solid 2px;*/
+    display: flex;
+    justify-content: center;
+}
+
+.inner-info-graphic{
+    margin-top: 100px;
     display: flex;
     flex-direction: column;
+    height: fit-content;
+    width: fit-content;
+    /*border: blue solid 2px;*/
+    justify-content: flex-start;
+}
+
+.inner-info-graphic > *{
+    margin-top: 0;
+}
+
+.register-container{
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    margin: 0 0 20vh 100px;
+    align-content: center;
     color: #7a7a7a;
     padding: 0 30px 20px 30px;
 }
