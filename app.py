@@ -229,6 +229,8 @@ def active_dashboard():
     labor = data_obj.labor
     materials = data_obj.materials
 
+    min_date = min(pandas_df[dates]).strftime('%d %b, %Y')
+    max_date = max(pandas_df[dates]).strftime('%d %b, %Y')
     total_sales_kpi = sum(pandas_df[sales])
     total_sales_kpi = '${:,.2f}'.format(round(total_sales_kpi, 2))
     avg_perc_profit = f"{round(sum(pandas_df['percent_profit'])/pandas_df.shape[0], 2)}%"
@@ -243,6 +245,8 @@ def active_dashboard():
     table = create_table(pandas_df.loc[:100])
     session["dashboard_objects"] = {"kpis": {"Total Sales": total_sales_kpi,
                                              "Avg Percent Profit": avg_perc_profit},
+                                    "view_details": {"min_date": min_date,
+                                                     "max_date": max_date},
                                     "visuals": {"bar": bar,
                                                 "line": line,
                                                 "table": table,

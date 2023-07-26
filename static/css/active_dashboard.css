@@ -148,6 +148,11 @@
     /*border: crimson solid 3px;*/
 }
 
+.top-left-container{
+    display: flex;
+    flex-direction: column;
+}
+
 .kpi-row{
     /*display: flex;*/
     /*flex-direction: column;*/
@@ -167,15 +172,23 @@
     /*border: crimson solid 3px;*/
 }
 
-.total-sales-kpi-container, .avg-pp-kpi-container{
+.total-sales-kpi-container{
     display: flex;
     flex-direction: column;
     margin-top: 15px;
 }
 
+.avg-pp-kpi-container{
+    display: flex;
+    width: fit-content;
+    margin-top: 15px;
+    /*border: solid red 2px;*/
+}
+
 .kpi-label{
     font-size: 20px;
     font-weight: 500;
+    /*border: solid orange 2px;*/
 }
 .kpi-number{
     margin-top: 2px;
@@ -183,21 +196,36 @@
     font-weight: bolder;
     margin-left: 35px;
     color: black;
+    /*border: solid orange 2px;*/
 }
 
-.deep-dive-sub-btn{
-    font-size: 12px;
-    margin-top: 5px;
-    margin-left: 15px;
-    width: 120px;
-    border: none;
-    background-color: #7a7a7a;
+.avg-pp-kpi-container .kpi-number{
+    margin-left: 10px;
+}
+
+.date-range-btn-container{
+    display: flex;
+    margin-top: 25px;
+    align-self: center;
+}
+
+.date-range-btn{
+    margin-left: 10px;
     color: white;
+    background-color: #6D6D6D;
+    border: none;
+    font-size: 14px;
+    box-shadow: #4B4B4B -1px 1px 3px;
+    padding: 5px;
 }
 
-.deep-dive-sub-btn:hover{
-    background-color: black;
-    box-shadow: #6e6e6e -1px 0 3px;
+.date-range-btn:hover{
+    cursor: pointer;
+    background-color: #467BDE;
+}
+
+.active-date-range{
+    background-color: #467BDE !important;
 }
 
 .sales-graph-container{
@@ -212,14 +240,17 @@
     height: fit-content;
     margin-left: 15px;
 }
-.sales-graph-container h3 em{
+.date-range-note{
     font-weight: normal;
+    font-size: 16px;
+    margin-left: 5px;
+    color: #858585;
 }
 
 .line-chart{
     height: 38vh;
     width: 60vw;
-    margin-top: 10px;
+    margin-top: 0px;
     /*border: orange solid 3px;*/
 }
 
@@ -252,7 +283,7 @@
 }
 
 .table{
-    width: 200vw;
+    width: 300vw;
     box-shadow: #7d7d7d -5px 0 10px;
     height: 200vh;
     /*padding: 0;*/
@@ -294,32 +325,17 @@
 
 .deep-dive-nav-container{
     display: flex;
-    flex-direction: column;
-    width: 50vw;
-    height: 68vh;
-    padding: 0 15px 0 15px;
+    width: 83vw;
+    justify-content: space-between;
     align-self: center;
-    overflow-y: scroll;
+    margin-top: 15px;
+    padding-left: 25px;
     /*border: blue solid 2px;*/
-}
-
-.deep-dive-btn{
-    height: fit-content;
-    padding: 10px;
-    font-size: 18px;
-    border: none;
-    background-color: indianred;
-    color: white;
-}
-
-.deep-dive-btn:hover{
-    background-color: #973633;
-    box-shadow: #6D6D6D -1px 0 3px;
 }
 
 .pool-option-container{
     display: flex;
-    min-height: 150px;
+    width: 25vw;
     /*align-items: center;*/
     /*padding-top: 20px;*/
     /*border: red solid 2px;*/
@@ -327,17 +343,17 @@
 }
 
 .pool-option-container img{
-    height: 90px;
+    height: 60px;
     /*border: blue solid 2px;*/
 }
 
 .image-container{
-    width: 14vw;
     height: available;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-right: #6D6D6D solid 1px;
+    margin-left: 15px;
+    margin-right: 20px;
     /*border: green solid 2px;*/
 
 }
@@ -347,32 +363,44 @@
     flex-direction: column;
     /*border: green solid 2px;*/
     align-content: flex-start;
-    padding-left: 15px;
+    margin-right: 10px;
 }
 
 .analytic-title{
     /*border: black solid 2px;*/
-    font-size: 22px;
+    font-size: 18px;
     font-weight: 800;
     margin-top: 15px;
     margin-bottom: 0;
 }
 .analytic-details-container p{
+    font-size: 15px;
     /*border: black solid 2px;*/
-    margin-top: 10px;
+    margin-top: 5px;
 }
 
-.analytic-details-container button{
-    margin-top: 15px;
+.deep-dive-btn{
+    height: fit-content;
+    border: none;
+    background-color: #467BDE;
+    color: white;
+    margin-bottom: 10px;
     font-size: 16px;
     width: fit-content;
     padding: 5px;
+    box-shadow: #6D6D6D -1px 0 3px;
+}
+
+.deep-dive-btn:hover{
+    cursor: pointer;
+    background-color: black;
 }
 
 .anomaly-container{
     display: none;
     height: 85vh;
-    width: 85vw;
+    width: fit-content;
+    align-self: center;
     /*border: red solid 2px;*/
     flex-direction: column;
     background-color: white;
@@ -381,8 +409,16 @@
 
 }
 
-.job-profit-top-container{
+.anomaly-page-title-container{
+    display: flex;
+    width: fit-content;
+    /*border: lightcoral dotted 2px;*/
+}
+
+.ml-chart-container{
     align-self: center;
+    /*border: orange solid 2px;*/
+    margin-top: 20px;
 }
 
 
@@ -397,8 +433,9 @@
     height: fit-content;
     width: 50vw;
     align-self: center;
-    margin-top: 30px;
+    margin-top: 10px;
     justify-content: space-between;
+    /*border: blue solid 2px;*/
 }
 
 .hpp-stats, .lpp-stats{
@@ -407,7 +444,7 @@
 
 .lpp-stats .init-prompt{
     font-weight: bolder;
-    color: red;
+    color: #d26149;
     text-align: center;
 }
 
@@ -418,7 +455,7 @@
 
 .hpp-stats .init-prompt{
     font-weight: bolder;
-    color: forestgreen;
+    color: #7ab45a;
     text-align: center;
 }
 
@@ -431,9 +468,60 @@
     display: none;
 }
 
+.add-record-page-title{
+    width: 15vw;
+    margin-left: 25px;
+}
+
 .quick-data-add-container{
-    height: 50vh;
+    height: fit-content;
     display: flex;
     flex-direction: column;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-left: 20px;
+}
+
+.add-record-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.add-record-form input{
+    height: 25px;
+}
+
+.add-record-field{
+    margin-top: 10px;
+}
+
+.currencyinput {
+    border: 1px inset #ccc;
+}
+.currencyinput input {
+    border: 0;
+    height: 25px;
+}
+
+/*.add-record-input-container input{*/
+/*    height: 30px;*/
+/*    margin-bottom: 8px;*/
+/*}*/
+
+.add-record-submit-btn{
+    align-self: center;
+    width: 100px;
+    margin-top: 20px;
+    margin-bottom: 15px;
+}
+
+.add-record-submit-btn:hover{
+    background-color: #599b05;
+}
+
+.small-note{
+    font-size: 10px;
+    margin-left: 5px;
+    font-style: italic;
 }
 

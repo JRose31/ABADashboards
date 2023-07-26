@@ -34,15 +34,21 @@
 
         <div class="main-dashboard" id="main-page">
             <div class="top-row">
-                <div class="details-container make-card">
-                    <div class="total-sales-kpi-container">
-                        <span class="kpi-label">Total Sales:</span>
-                        <span class="kpi-number">{{ objects["kpis"]["Total Sales"] }}</span>
+                <div class="top-left-container">
+                    <div class="details-container make-card">
+                        <div class="total-sales-kpi-container">
+                            <span class="kpi-label">Total Sales:</span>
+                            <span class="kpi-number">{{ objects["kpis"]["Total Sales"] }}</span>
+                        </div>
+                        <div class="avg-pp-kpi-container">
+                            <span class="kpi-label">Avg % Profit:</span>
+                            <span class="kpi-number">{{ objects["kpis"]["Avg Percent Profit"] }}</span>
+                        </div>
                     </div>
-                    <div class="avg-pp-kpi-container">
-                        <span class="kpi-label">Avg % Profit:</span>
-                        <span class="kpi-number">{{ objects["kpis"]["Avg Percent Profit"] }}</span>
-{#                        <button onclick="showPage('anomaly-page', 'deep-dive-btn')" class="deep-dive-sub-btn"><em>More on % profit...</em></button>#}
+                    <div class="date-range-btn-container">
+                        <button class="date-range-btn all-time-btn active-date-range">All Time</button>
+                        <button class="date-range-btn this-month-btn">This Month</button>
+                        <button class="date-range-btn this-week-btn">This Week</button>
                     </div>
                 </div>
                 <div class="pie-chart-container make-card">
@@ -54,7 +60,7 @@
 
             <div class="bottom-row">
                 <div class="sales-graph-container">
-                    <h3>Sales timeline <em>Loading date range...</em></h3>
+                    <h3>Sales timeline <em class="date-range-note">{{ objects["view_details"]["min_date"] }} - {{ objects["view_details"]["max_date"] }}</em></h3>
                     <div class="line-chart" id="linegraph">
                     </div>
                 </div>
@@ -74,32 +80,32 @@
             <div class="deep-dive-nav-container">
                 <div class="pool-option-container make-card">
                     <div class="image-container">
-                        <img src="{{ url_for("static", filename="site_images/job_profit_icon.png") }}" width="90px" alt="">
+                        <img src="{{ url_for("static", filename="site_images/job_profit_icon.png") }}" width="60px" alt="">
                     </div>
                     <div class="analytic-details-container">
-                        <span class="analytic-title">Job Profits</span>
-                        <p>Analytic explained at a high level...</p>
-                        <button class="deep-dive-btn" onclick="showPage('anomaly-page', 'deep-dive-btn')"><div></div>View Analysis</button>
+                        <span class="analytic-title">Profitability Analysis</span>
+                        <p>See your jobs that have unusually low and high percent profit.</p>
+                        <button class="deep-dive-btn" onclick="showPage('anomaly-page', 'deep-dive-btn')"><div></div>Go to view</button>
                     </div>
                 </div>
                 <div class="pool-option-container make-card">
                     <div class="image-container">
-                        <img src="{{ url_for("static", filename="site_images/deep_dive_placeholder_icon.png") }}" width="90px" alt="">
+                        <img src="{{ url_for("static", filename="site_images/deep_dive_placeholder_icon.png") }}" width="60px" alt="">
                     </div>
                     <div class="analytic-details-container">
                         <span class="analytic-title">TBD</span>
                         <p>Analytic explained at a high level...</p>
-                        <button class="deep-dive-btn">View Analysis</button>
+                        <button class="deep-dive-btn">Go to view</button>
                     </div>
                 </div>
                 <div class="pool-option-container make-card">
                     <div class="image-container">
-                        <img src="{{ url_for("static", filename="site_images/deep_dive_placeholder_icon.png") }}" width="90px" alt="">
+                        <img src="{{ url_for("static", filename="site_images/deep_dive_placeholder_icon.png") }}" width="60px" alt="">
                     </div>
                     <div class="analytic-details-container">
                         <span class="analytic-title">TBD</span>
                         <p>Analytic explained at a high level...</p>
-                        <button class="deep-dive-btn">View Analysis</button>
+                        <button class="deep-dive-btn">Go to view</button>
                     </div>
                 </div>
             </div>
@@ -107,10 +113,11 @@
         </div>
 
         <div class="anomaly-container" id="anomaly-page">
-            <div class="job-profit-top-container">
-                <h2 class="anomaly-page-title">Job Profits | <span style="font-weight: lighter; font-style: italic">Analysis</span></h2>
-                <div class="ml-chart" id="mlgraph">
-                </div>
+            <div class="anomaly-page-title-container">
+                <h2 class="anomaly-page-title">Profitability Analysis |
+                    <span class="date-range-note">
+                        {{ objects["view_details"]["min_date"] }} - {{ objects["view_details"]["max_date"] }}
+                    </span></h2>
             </div>
             <div class="summary-stats">
                 <div class="lpp-stats make-card">
@@ -148,29 +155,35 @@
                     </ul>
                 </div>
             </div>
+            <div class="ml-chart-container">
+                <div class="ml-chart" id="mlgraph">
+                </div>
+            </div>
         </div>
     <div class="add-record-page" id="add-record-page">
-            <h2>Update {{ data["dashboard_config"]["project_name"] }}</h2>
+            <h2 class="add-record-page-title">Update {{ data["dashboard_config"]["project_name"] }}</h2>
             <div class="quick-data-add-container make-card">
                 <h3>Add a record</h3>
-                <form action="" method="post">
-                    <div class="add-record-input-container" id="add-record-form">
-                        <label for="add-record-date">Date</label>
-                        <input name="add-record-date" type="date">
+                <form  class="add-record-form" action="" method="post">
+                    <label for="add-record-date">Date</label>
+                    <input name="add-record-date" type="date">
 
-                        <label for="add-record-sales">Sales</label>
-                        <input name="add-record-sales" type="number">
+                    <label for="add-record-sales" class="add-record-field">Sales</label>
+                    <span class="small-note">Total sale amount.</span>
+                    <span class="currencyinput">$<input name="add-record-sales" type='number' step='0.01' value='0.00' placeholder='0.00'></span>
 
-                        <label for="add-record-materials">Materials</label>
-                        <input name="add-record-materials" type="number">
+                    <label for="add-record-materials" class="add-record-field">Materials</label>
+                    <span class="small-note">Total cost of materials used.</span>
+                    <span class="currencyinput">$<input name="add-record-materials" id="materials-costs" type='number' step='0.01' value='0.00' placeholder='0.00' onchange="updateTotal()"></span>
 
-                        <label for="add-record-labor">Labor</label>
-                        <input name="add-record-labor" type="number">
+                    <label for="add-record-labor" class="add-record-field">Labor</label>
+                    <span class="small-note">Total cost of labor.</span>
+                    <span class="currencyinput">$<input name="add-record-labor" id="labor-costs" type='number' step='0.01' value='0.00' placeholder='0.00' onchange="updateTotal()"></span>
 
-                        <label for="add-record-costs">Total Costs</label>
-                        <input name="add-record-costs" type="number">
-                        <button type="submit" value="add_record_{{ data["dashboard_config"]["project_name"] }}" name="dashboard-action" class="add-record-submit-btn">Add record</button>
-                    </div>
+                    <label for="add-record-costs" class="add-record-field">Total Costs</label>
+                    <span class="small-note">Materials, Labor, additional costs.</span>
+                    <span class="currencyinput">$<input name="add-record-costs" id="total-cost" type='number' step='0.01' value='0.00' placeholder='0.00'></span>
+                    <button type="submit" value="add_record_{{ data["dashboard_config"]["project_name"] }}" name="dashboard-action" class="add-record-submit-btn theme-btn">Add record</button>
                 </form>
             </div>
 
@@ -202,6 +215,16 @@
         get_page.style.display = "flex";
         let get_button = document.getElementById(active_btn);
         get_button.classList.add('active-btn')
+    }
+
+    function updateTotal(){
+        let materials_total = document.getElementById("materials-costs").value;
+        let labor_total = document.getElementById("labor-costs").value;
+
+        let current_total = parseFloat(materials_total)+parseFloat(labor_total);
+        console.log(current_total)
+        let total_costs = document.getElementById("total-cost");
+        total_costs.value = current_total;
     }
 
 </script>

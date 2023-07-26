@@ -31,6 +31,8 @@ def create_bar_plot(df, costs, labor, materials):
         )
     )
 
+    fig.update_traces(marker=dict(colors=['royalblue', 'darkblue', 'lightgrey']))
+
     graphJSON = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
 
     return graphJSON
