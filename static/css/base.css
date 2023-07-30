@@ -40,12 +40,25 @@ html, body{
 }
 
 .logo-container{
+    width: 100vw;
     height: 8vh;
-    padding-left: 10px;
+    /*padding-left: 15px;*/
     display: flex;
-    align-items: center;
     justify-content: center;
-    background-color: #467BDE;
+    /*background-color: #467BDE;*/
+    background-color: white;
+}
+
+#main-logo{
+    padding-top: 10px;
+    padding-bottom: 5px;
+    max-width: 130px;
+    max-height: 110px;
+    /*max-width:200px;*/
+    /*max-height:95px;*/
+    width: auto;
+    height: auto;
+    /*height: auto;*/
 }
 
 .logo-text{

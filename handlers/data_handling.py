@@ -1,5 +1,6 @@
 import pandas as pd
 from handlers.models import createDataTable, addRecord, UserTables
+from handlers.graph_templates import *
 import json
 
 
@@ -58,7 +59,8 @@ def clean_data(data, date_field, labor_field, materials_field, costs_field, sale
     # Change date to datetime
     data[date_field] = pd.to_datetime(data[date_field], format='%Y-%m-%d %H:%M:%S')
 
-    data[[labor_field, materials_field, costs_field, sales_field]] = data[[labor_field, materials_field, costs_field, sales_field]].astype(float)
+    data[[labor_field, materials_field, costs_field, sales_field]] = data[
+        [labor_field, materials_field, costs_field, sales_field]].astype(float)
 
     # Fill in materials with average
     data[materials_field] = data[materials_field].fillna(data[materials_field].mean())
@@ -132,3 +134,41 @@ def getRequestedData(user_id, table_name):
     col_mapping = json.loads(col_mapping)
 
     return data, col_mapping
+
+
+def renderDashboard(data, date_range=None):
+    data_obj = CurrentData()
+    data_obj.extract_data(data)
+    data_obj.update_percent_profit()
+
+    # Save dataframe and field names as variables
+    pandas_df = data_obj.pandas_df
+    dates = data_obj.dates
+    sales = data_obj.sales
+    costs = data_obj.costs
+    labor = data_obj.labor
+    materials = data_obj.materials
+
+    min_date = min(pandas_df[dates]).strftime('%d %b, %Y')
+    max_date = max(pandas_df[dates]).strftime('%d %b, %Y')
+    total_sales_kpi = sum(pandas_df[sales])
+    total_sales_kpi = '${:,.2f}'.format(round(total_sales_kpi, 2))
+    avg_perc_profit = f"{round(sum(pandas_df['percent_profit']) / pandas_df.shape[0], 2)}%"
+    bar = create_bar_plot(pandas_df, costs, labor, materials)
+    ml_graph, summary_stats = anomaly_detection(pandas_df, columns={"date": dates,
+                                                                    "sales": sales,
+                                                                    "labor": labor,
+                                                                    "materials": materials,
+                                                                    }
+                                                )
+    line = create_line_plot(pandas_df, dates, sales)
+    table = create_table(pandas_df.loc[:100])
+    return {"kpis": {"Total Sales": total_sales_kpi,
+                     "Avg Percent Profit": avg_perc_profit},
+            "view_details": {"min_date": min_date,
+                             "max_date": max_date},
+            "visuals": {"bar": bar,
+                        "line": line,
+                        "table": table,
+                        "ml_graph": ml_graph},
+            "anomalies": {"stats": summary_stats}}

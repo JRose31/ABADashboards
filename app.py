@@ -8,7 +8,7 @@ from flask import (request,
 from werkzeug.utils import secure_filename
 import os
 from os.path import join, dirname, realpath
-from handlers.data_handling import file_options, saveData, CurrentData, processNewRecord, getRequestedData
+from handlers.data_handling import file_options, saveData, CurrentData, processNewRecord, getRequestedData, renderDashboard
 from handlers.graph_templates import *
 from handlers.models import *
 import secrets
@@ -216,42 +216,7 @@ def active_dashboard():
             return redirect('/active-dashboard')
 
     data = session.get("preview_dataframe")
-
-    data_obj = CurrentData()
-    data_obj.extract_data(data)
-    data_obj.update_percent_profit()
-
-    # Save dataframe and field names as variables
-    pandas_df = data_obj.pandas_df
-    dates = data_obj.dates
-    sales = data_obj.sales
-    costs = data_obj.costs
-    labor = data_obj.labor
-    materials = data_obj.materials
-
-    min_date = min(pandas_df[dates]).strftime('%d %b, %Y')
-    max_date = max(pandas_df[dates]).strftime('%d %b, %Y')
-    total_sales_kpi = sum(pandas_df[sales])
-    total_sales_kpi = '${:,.2f}'.format(round(total_sales_kpi, 2))
-    avg_perc_profit = f"{round(sum(pandas_df['percent_profit'])/pandas_df.shape[0], 2)}%"
-    bar = create_bar_plot(pandas_df, costs, labor, materials)
-    ml_graph, summary_stats = anomaly_detection(pandas_df, columns={"date": dates,
-                                                                    "sales": sales,
-                                                                    "labor": labor,
-                                                                    "materials": materials,
-                                                                    }
-                                                )
-    line = create_line_plot(pandas_df, dates, sales)
-    table = create_table(pandas_df.loc[:100])
-    session["dashboard_objects"] = {"kpis": {"Total Sales": total_sales_kpi,
-                                             "Avg Percent Profit": avg_perc_profit},
-                                    "view_details": {"min_date": min_date,
-                                                     "max_date": max_date},
-                                    "visuals": {"bar": bar,
-                                                "line": line,
-                                                "table": table,
-                                                "ml_graph": ml_graph},
-                                    "anomalies": {"stats": summary_stats}}
+    session["dashboard_objects"] = renderDashboard(data)
     visual_objects = session.get("dashboard_objects")
 
     return render_template('active_dashboard.html', data=data, user=user, objects=visual_objects)

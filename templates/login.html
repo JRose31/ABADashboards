@@ -7,7 +7,8 @@
 {% endblock %}
 {% block content %}
         <div class="graphic-container">
-            <img src="{{ url_for("static", filename="site_images/intro_graphic.png") }}" alt="" width="550px">
+            <span class="subtitle-text">Your on-demand business analyst for <span class="subtitle-highlight" id="swap-tagline">Savings.</span></span>
+            <img class="info-graphic-img" src="{{ url_for("static", filename="site_images/active_dashboard_screenshot.png") }}" alt="" width="650px">
         </div>
         <div class="login-container make-card">
             <h3>User Login</h3>
@@ -26,5 +27,21 @@
                 <a href="/register"><button>Sign Up</button></a>
             </div>
         </div>
+
+    <script>
+    let text = ["Growth.", "Higher Profits.", "Scaling.", "More Revenue.", "Saving."];
+    let counter = 0;
+    let elem = document.getElementById("swap-tagline");
+    let inst = setInterval(change, 5000);
+
+    function change() {
+      elem.innerHTML = text[counter];
+      counter++;
+      if (counter >= text.length) {
+        counter = 0;
+        // clearInterval(inst); // uncomment this if you want to stop refreshing after one cycle
+      }
+    }
+    </script>
 
 {% endblock %}
