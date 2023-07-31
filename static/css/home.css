@@ -1,13 +1,36 @@
+.header{
+    /*border: solid 2px red;*/
+    height: fit-content;
+}
+
 .navbar{
     display: flex;
     /*width: 100vw;*/
     justify-content: space-between;
+    /*border: solid orange 2px;*/
+    /*background-color: transparent;*/
 }
 
 
 .logo-container{
-    height: 15vh;
+    height: 10vh;
+    background-color: #467BDE;
+    justify-content: flex-start;
 }
+
+#main-logo{
+    padding-top: 10px;
+    padding-bottom: 5px;
+    margin-left: 15px;
+    max-width: 100px;
+    max-height: 90px;
+    /*max-width:200px;*/
+    /*max-height:95px;*/
+    width: auto;
+    height: auto;
+    /*height: auto;*/
+}
+
 
 .right-navbar{
     display: flex;
@@ -26,29 +49,32 @@
     justify-content: center;
     /*align-items: center;*/
     /*border: red solid 2px;*/
-    height: max-content;
-    margin-top: 20px;
+    height: 83vh;
+    /*margin-top: 20px;*/
     width: 90vw;
 }
 
 .projects-container{
     /*width: 50vw;*/
-    height: 75vh;
+    height: fit-content;
     display: flex;
     flex-direction: column;
     padding-left: 25px;
     padding-bottom: 10px;
+    margin-top: 25px;
     /*border: blue solid 2px;*/
 
 }
 
 .quick-data-add-container{
     /*width: 50vw;*/
-    height: 75vh;
+    height: fit-content;
+    max-height: 70vh;
     display: flex;
     flex-direction: column;
     margin-left: 20px;
     padding: 0 10px 0 10px;
+    margin-top: 25px;
     /*border: orange solid 2px;*/
 }
 

@@ -24,39 +24,35 @@
     /*text-shadow: #4B4B4B -1px 0 2px;*/
 }
 
-.logo-container sup{
-    font-style: italic;
-    text-shadow: none;
-    font-size: 16px;
-    font-weight: lighter;
-}
 
 .graphic-container{
     display: flex;
     flex-direction: column;
-    width: 50vw;
+    width: fit-content;
     height: fit-content;
     padding-left: 50px;
     align-self: center;
     margin-bottom: 50px;
     align-items: flex-start;
     margin-top: 40px;
+    /*border: solid red 2px;*/
 }
 
 .subtitle-text{
     color: white;
     font-size: 24px;
     font-weight: 500;
+    /*border: solid orange 2px;*/
+    width: 100%;
 }
 
 .subtitle-highlight{
     text-decoration: underline;
     font-weight: bolder;
-    font-size: 25px;
-    margin-left: 3px;
-    margin-right: 2px;
+    margin-left: 5px;
     color: black;
-    /*text-shadow: #858585 -1px 1px 3px;*/
+    display: inline;
+    text-shadow: #203763 -3px 3px 10px;
 }
 
 .image-bkgnd-graphic{

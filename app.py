@@ -8,7 +8,8 @@ from flask import (request,
 from werkzeug.utils import secure_filename
 import os
 from os.path import join, dirname, realpath
-from handlers.data_handling import file_options, saveData, CurrentData, processNewRecord, getRequestedData, renderDashboard
+from handlers.data_handling import file_options, saveData, CurrentData, processNewRecord, getRequestedData, \
+    renderDashboard
 from handlers.graph_templates import *
 from handlers.models import *
 import secrets
@@ -106,11 +107,14 @@ def home():
         table_name = action
         json_obj, col_mapping = getRequestedData(user_id=user_info["user_id"], table_name=table_name)
 
-        data = session["preview_dataframe"]
-        data["dataframe"] = pd.read_json(json_obj)
-        data["dashboard_config"] = {"project_name": table_name,
-                                    "fields": col_mapping,
-                                    }
+        session["preview_dataframe"] = {"dataframe": pd.read_json(json_obj),
+                                        "dashboard_config": {"project_name": table_name,
+                                                             "fields": col_mapping,
+                                                             }}
+        # data["dataframe"] = pd.read_json(json_obj)
+        # data["dashboard_config"] = {"project_name": table_name,
+        #                             "fields": col_mapping,
+        #                             }
         return redirect('/active-dashboard')
 
     user_datasets = UserTables.query.filter_by(user_id=user_info["user_id"]).all()
