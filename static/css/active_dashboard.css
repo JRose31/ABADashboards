@@ -132,6 +132,29 @@
     background-color: black;
 }
 
+.flashes{
+    position: fixed;
+    z-index: 1;
+    margin-left: 40%;
+    margin-top: 20%;
+    background-color: white;
+    width: 300px;
+    height: fit-content;
+    padding-top: 5px;
+    padding-bottom: 10px;
+    max-height: 40vh;
+    font-weight: bold;
+    color: black;
+
+}
+
+.flashes button:hover{
+    cursor: pointer;
+    background-color: #cb655f;
+    color: black;
+    font-weight: bold;
+}
+
 .main-dashboard{
     display: flex;
     flex-direction: column;
@@ -217,6 +240,11 @@
     font-size: 14px;
     box-shadow: #4B4B4B -1px 1px 3px;
     padding: 5px;
+}
+
+.date-range-btn a{
+    text-decoration: none;
+    color: white;
 }
 
 .date-range-btn:hover{

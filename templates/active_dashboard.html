@@ -7,6 +7,16 @@
 {% endblock %}
 
 {% block content %}
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul class="flashes make-card" id="flash-card">
+        {% for message in messages %}
+          <p>{{ message }}</p>
+            <button onclick="hideAlert('flash-card')">close</button>
+        {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
     <div class="action-bar">
         <a href="/home">
         <button class="home-btn action-btn" href="/home">
@@ -46,9 +56,9 @@
                         </div>
                     </div>
                     <div class="date-range-btn-container">
-                        <button class="date-range-btn all-time-btn active-date-range">All Time</button>
-                        <button class="date-range-btn this-month-btn">This Month</button>
-                        <button class="date-range-btn this-week-btn">This Week</button>
+                        <button class="date-range-btn all-time-btn active-date-range"><a href="{{ url_for('active_dashboard', date_range='All-time') }}">All Time</a></button>
+                        <button class="date-range-btn this-month-btn"><a href="{{ url_for('active_dashboard', date_range='Month') }}">This Month</a></button>
+                        <button class="date-range-btn this-week-btn"><a href="{{ url_for('active_dashboard', date_range='Week') }}">This Week</a></button>
                     </div>
                 </div>
                 <div class="pie-chart-container make-card">
@@ -225,6 +235,11 @@
         console.log(current_total)
         let total_costs = document.getElementById("total-cost");
         total_costs.value = current_total;
+    }
+
+    function hideAlert(alert_id){
+        let alert_card = document.getElementById(alert_id);
+        alert_card.style.display = 'none';
     }
 
 </script>

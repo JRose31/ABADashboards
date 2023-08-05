@@ -1,4 +1,5 @@
 import pandas as pd
+from datetime import datetime, timedelta
 from handlers.models import createDataTable, addRecord, UserTables
 from handlers.graph_templates import *
 import json
@@ -148,6 +149,17 @@ def renderDashboard(data, date_range=None):
     costs = data_obj.costs
     labor = data_obj.labor
     materials = data_obj.materials
+
+    # Filter date
+    today = datetime.today()
+    if date_range == "Month":
+        start_date = datetime(year=today.year, month=today.month, day=1)
+        pandas_df = pandas_df[pandas_df[dates] >= start_date]
+
+    if date_range == "Week":
+        week = today - timedelta(days=today.weekday())
+        start_date = datetime(year=week.year, month=week.month, day=week.day)
+        pandas_df = pandas_df[pandas_df[dates] >= start_date]
 
     min_date = min(pandas_df[dates]).strftime('%d %b, %Y')
     max_date = max(pandas_df[dates]).strftime('%d %b, %Y')

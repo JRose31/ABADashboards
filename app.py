@@ -4,7 +4,9 @@ from flask_session import Session
 from handlers import database
 from flask import (request,
                    redirect,
-                   render_template)
+                   render_template,
+                   url_for,
+                   flash)
 from werkzeug.utils import secure_filename
 import os
 from os.path import join, dirname, realpath
@@ -115,7 +117,7 @@ def home():
         # data["dashboard_config"] = {"project_name": table_name,
         #                             "fields": col_mapping,
         #                             }
-        return redirect('/active-dashboard')
+        return redirect(url_for('active_dashboard', date_range='All-time'))
 
     user_datasets = UserTables.query.filter_by(user_id=user_info["user_id"]).all()
     if len(user_datasets) > 0:
@@ -200,8 +202,8 @@ def preview_data():
     return render_template('preview_data.html', data=data, table=table, user=username, messages=messages)
 
 
-@app.route('/active-dashboard', methods=["GET", "POST"])
-def active_dashboard():
+@app.route('/active-dashboard/<date_range>', methods=["GET", "POST"])
+def active_dashboard(date_range=None):
     user = session.get("account")
 
     if request.method == "POST":
@@ -217,10 +219,15 @@ def active_dashboard():
             data["dashboard_config"] = {"project_name": table_name,
                                         "fields": col_mapping,
                                         }
-            return redirect('/active-dashboard')
+            return redirect(url_for('active_dashboard', date_range='All-time'))
 
     data = session.get("preview_dataframe")
-    session["dashboard_objects"] = renderDashboard(data)
+
+    try:
+        session["dashboard_objects"] = renderDashboard(data, date_range=date_range)
+    except ValueError:
+        flash('No data available for requested date range.')
+        session["dashboard_objects"] = renderDashboard(data, date_range="All-time")
     visual_objects = session.get("dashboard_objects")
 
     return render_template('active_dashboard.html', data=data, user=user, objects=visual_objects)
