@@ -1,4 +1,5 @@
 import pandas as pd
+from flask import session
 from datetime import datetime, timedelta
 from handlers.models import createDataTable, addRecord, UserTables
 from handlers.graph_templates import *
@@ -152,14 +153,26 @@ def renderDashboard(data, date_range=None):
 
     # Filter date
     today = datetime.today()
-    if date_range == "Month":
+
+    if date_range == "this-year":
+        start_date = datetime(year=today.year, month=1, day=1)
+        pandas_df = pandas_df[pandas_df[dates] >= start_date]
+
+    if date_range == "this-month":
         start_date = datetime(year=today.year, month=today.month, day=1)
         pandas_df = pandas_df[pandas_df[dates] >= start_date]
 
-    if date_range == "Week":
+    if date_range == "this-week":
         week = today - timedelta(days=today.weekday())
         start_date = datetime(year=week.year, month=week.month, day=week.day)
         pandas_df = pandas_df[pandas_df[dates] >= start_date]
+
+    if date_range == "custom":
+        filters = session.get("active-dashboard")["filters"]
+        print(filters)
+        start_date = datetime.strptime(filters["start date"], '%Y-%m-%d')
+        end_date = datetime.strptime(filters["end date"], '%Y-%m-%d')
+        pandas_df = pandas_df[(pandas_df[dates] >= start_date) & (pandas_df[dates] <= end_date)]
 
     min_date = min(pandas_df[dates]).strftime('%d %b, %Y')
     max_date = max(pandas_df[dates]).strftime('%d %b, %Y')

@@ -3,16 +3,48 @@
     <title>Register</title>
     <link rel="stylesheet" href="{{ url_for("static", filename="css/register.css") }}">
 {% endblock %}
+
+{% block logo_image %}
+<img src="{{ url_for("static", filename="site_images/main_logo_black.png") }}" alt="" id="main-logo">
+{% endblock %}
+
 {% block navbar %}
 <a href="/"><button class="navbar-buttons">Back</button></a>
 {% endblock %}
+
 {% block content %}
     <div class="info-graphic-container">
         <div class="inner-info-graphic">
-            <h2>We're accepting Test-Users!</h2>
-            <p>Test-Users receive 1st year discounted subscription!</p>
-            <p><em>Slots are limited and for a limited time only.</em></p>
-            <h3>How to register as a Test-User</h3>
+            <h2 class="info-main-header">Become a test user for <span class="spotlight-text"> free & early access!</span></h2>
+            <p class="info-subtext">Active test users receive 20% off subscription in the first year. </p>
+            <h3 class="info-how-to-header">How to register as a Test User</h3>
+            <p>Fill out and submit the form below to receive your company's unique token.</p>
+            <div class="info-how-to-body">
+                <div action="" class="register-test-user-form make-card">
+                    <form method="post" id="request-token-form">
+                        <label for="test-user-email">First Name:</label>
+                        <input type="text" name="test-user-email" placeholder="Enter your first name..."><br>
+                        <label for="test-user-email">Last Name:</label>
+                        <input type="text" name="test-user-email" placeholder="Enter your last name..."><br>
+                        <label for="test-user-email">Provide a valid email:</label>
+                        <input type="text" name="test-user-email" placeholder="example@learningn.com"><br>
+                        <label for="test-user-email">Company Name:</label>
+                        <input type="text" name="test-user-email" placeholder="Enter your company's name..."><br>
+                        <label for="test-user-email">Position at company:</label>
+                        <input type="text" name="test-user-email" placeholder="example@learningn.com"><br>
+                        <label for="test-user-email">Company type:</label>
+                        <input type="text" name="test-user-email" placeholder="ex: Painting Contractor, Landscaping, General Contractor..."><br>
+                        <label for="test-user-email" class="long-form-label">Choose an option that best describes your company's adoption of technology:</label><br>
+                        <select name="test-user-company-tech" id="" class="last-test-user-input">
+                            <option value="0">We're in the Stone Age!</option>
+                            <option value="1">We use Excel, Word, and PowerPoint mostly.</option>
+                            <option value="2">We use an online bookkeeping web service.</option>
+                            <option value="3">We use more than one online web service to sustain operations.</option>
+                        </select><br>
+                    </form>
+                    <input type="submit" value="Request Token" form="request-token-form" class="submit-request-token theme-btn">
+                </div>
+            </div>
         </div>
     </div>
     <div class="register-container make-card">
@@ -22,7 +54,10 @@
         <input type="text" name="user-email" placeholder="example@learningn.com"><br>
         <label for="user-pwd">Enter an 8-16 character password:</label><br>
         <input type="password" name="user-pwd" placeholder="Password"><br>
-        <input type="submit" value="Register">
+        <label for="user-token">Enter your unique token:</label><br>
+        <input type="password" name="user-token" placeholder="Token" class="last-input">
+        <p class="small-note"><em>How do I get a token?</em></p>
+        <input type="submit" value="Register" class="theme-btn">
         {{ message }}
         </form>
     </div>

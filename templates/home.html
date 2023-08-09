@@ -3,22 +3,28 @@
     <title>Home</title>
     <link rel="stylesheet" href="{{ url_for("static", filename="css/home.css") }}">
 {% endblock %}
+
+{% block logo_image %}
+<img src="{{ url_for("static", filename="site_images/main_logo_white.png") }}" alt="" id="main-logo">
+{% endblock %}
+
 {% block navbar %}
     <div class="navbar-spacer"></div>
     <div class="center-navbar">
 
         <a href="/data-import"><button class="navbar-buttons">Create Dashboard</button></a>
-        <a href="#"><button class="navbar-buttons">Cost Estimation</button></a>
-        <a href="#"><button class="navbar-buttons">Ask It <sup class="beta-sup">beta</sup></button></a>
+{#        <a href="#"><button class="navbar-buttons">Cost Estimation</button></a>#}
+{#        <a href="#"><button class="navbar-buttons">Ask It <sup class="beta-sup">beta</sup></button></a>#}
     </div>
     <div class="right-navbar">
         <span>{{ user["email"] }}</span>
         <a href="/"><button class="navbar-buttons logout-btn">Logout</button></a>
     </div>
 {% endblock %}
+
 {% block content %}
     <div class="projects-container make-card">
-        <h2>Recent Dashboards</h2>
+        <h2 class="recent-dashboards-title">Recent Dashboards</h2>
         <form class="project-thumbnail-form" method="post">
             {% if projects %}
                 {% for project in projects %}
@@ -45,7 +51,7 @@
         </form>
     </div>
     <div class="quick-data-add-container make-card">
-        <h3>Create New Record</h3>
+        <h3 class="new-record-title">Create New Record</h3>
         <form action="" method="post">
             <select name="table-selection" id="dashboard-selector" onchange="reveal_form()">
                 <option value="none">Select a dashboard.</option>

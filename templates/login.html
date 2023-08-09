@@ -3,28 +3,37 @@
     <title>Login</title>
     <link rel="stylesheet" href="{{ url_for("static", filename="css/login.css") }}">
 {% endblock %}
+
+{% block logo_image %}
+<img src="{{ url_for("static", filename="site_images/main_logo_white.png") }}" alt="" id="main-logo">
+{% endblock %}
+
 {% block navbar %}
 {% endblock %}
+
 {% block content %}
         <div class="graphic-container">
             <span class="subtitle-text">Your on-demand business analyst for <h3 class="subtitle-highlight" id="swap-tagline">Savings.</h3></span>
             <img class="info-graphic-img" src="{{ url_for("static", filename="site_images/active_dashboard_screenshot.png") }}" alt="" width="650px">
+            <span class="footer-text">A single upload to start analyzing profits, forecasting sales, and more!</span>
         </div>
-        <div class="login-container make-card">
-            <h3>User Login</h3>
-            <form action="" method="post">
-                <input type="email" name="email" placeholder="Email"><br>
-                <input type="password" name="password" placeholder="Password"><br>
-                <input type="submit" value="Login" class="login-btn">
-            </form>
-            {% if message %}
-                <div class="login-message">
-                    {{ message }}
+        <div class="login-content-container">
+            <h2 class="login-title">User Login</h2>
+            <div class="login-container make-card">
+                <form action="" method="post">
+                    <input type="email" name="email" placeholder="Email"><br>
+                    <input type="password" name="password" placeholder="Password"><br>
+                    <input type="submit" value="Login" class="login-btn">
+                </form>
+                {% if message %}
+                    <div class="login-message">
+                        {{ message }}
+                    </div>
+                {% endif %}
+                <div class="register-container">
+                    <p>Become a test user today!</p>
+                    <a href="/register"><button>Sign Up</button></a>
                 </div>
-            {% endif %}
-            <div class="register-container">
-                <p>Don't have an account?</p>
-                <a href="/register"><button>Sign Up</button></a>
             </div>
         </div>
 

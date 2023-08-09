@@ -1,7 +1,20 @@
+.title-notation{
+    color: black;
+}
+
+.logo-container{
+    justify-content: flex-start;
+}
+
+#main-logo{
+    width: 80px;
+    margin-left: 10px;
+}
+
 .navbar{
     display: flex;
     width: 100vw;
-    height: 7vh;
+    /*height: 7vh;*/
     justify-content: space-between;
 }
 .right-navbar{

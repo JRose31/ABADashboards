@@ -1,13 +1,50 @@
+.header{
+    /*border: solid red 2px;*/
+}
+
+.logo-container{
+    justify-content: flex-start;
+}
+
+#main-logo{
+    width: 80px;
+    margin-left: 10px;
+}
+
+.content{
+    background-image: linear-gradient(rgba(94,157,238,0.29), rgba(70,123,222,0.86));
+}
+
+/*.navbar{*/
+/*    */
+/*}*/
+
+.title-notation{
+    color: black;
+}
+
+.spotlight-text{
+    /*color: #5e9dee;*/
+    text-shadow: #858585 -1px 1px 3px;
+    font-size: 28px;
+    margin-left: 2px;
+    font-weight: bolder;
+    text-decoration: underline;
+    text-decoration-color: #467BDE;
+}
+
 .info-graphic-container{
-    height: 80vh;
-    width: 50vw;
+    height: 85vh;
+    width: 55vw;
     /*border: red solid 2px;*/
     display: flex;
     justify-content: center;
+    color: black;
+    /*align-self: center;*/
 }
 
 .inner-info-graphic{
-    margin-top: 100px;
+    margin-top: 10px;
     display: flex;
     flex-direction: column;
     height: fit-content;
@@ -16,18 +53,60 @@
     justify-content: flex-start;
 }
 
-.inner-info-graphic > *{
-    margin-top: 0;
+.info-main-header{
+    margin-bottom: 0;
+}
+
+.info-how-to-header{
+    margin-top: 20px;
+    margin-bottom: 0;
+    align-self: center;
+}
+
+.register-test-user-form{
+    margin-top: 5px;
+    background-color: white;
+    height: 46vh;
+    width: fit-content;
+    padding-top: 6px;
+    padding-right: 5px;
+    padding-left: 5px;
+    border: none;
+}
+
+#request-token-form{
+    /*padding: 10px 0 10px 10px;*/
+    padding-left: 5px;
+    height: 38vh;
+    overflow-y: scroll;
+}
+
+.long-form-label{
+    word-wrap: break-word;
+    padding-right: 3px;
+}
+
+.last-test-user-input{
+    margin-top: 5px;
+    margin-bottom: 5px;
+    font-size: 16px;
+}
+
+.submit-request-token{
+    margin-top: 10px;
+    margin-left: 5px;
 }
 
 .register-container{
     display: flex;
     flex-direction: column;
     align-self: center;
-    margin: 0 0 20vh 100px;
+    margin-left: 100px;
     align-content: center;
-    color: #7a7a7a;
+    color: black;
     padding: 0 30px 20px 30px;
+    background-color: white;
+    border: none;
 }
 
 
@@ -35,4 +114,18 @@ input{
     margin-top: 5px;
     margin-bottom: 15px;
     font-size: 16px;
+}
+
+.last-input{
+    margin-bottom: 0;
+}
+
+.small-note{
+    margin-top: 3px;
+    font-size: 13px;
+}
+
+.small-note:hover{
+    color: black;
+    cursor: pointer;
 }

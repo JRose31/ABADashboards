@@ -1,3 +1,20 @@
+.logo-container{
+    justify-content: flex-start;
+}
+
+.content{
+    background-image: linear-gradient(#e5e5e5, #b4b4b4);
+}
+
+.title-notation{
+    color: black;
+}
+
+#main-logo{
+    width: 80px;
+    margin-left: 10px;
+}
+
 .navbar{
     justify-content: space-between;
 }
@@ -21,34 +38,75 @@
     /*border: red solid 2px;*/
     /*height: fit-content;*/
     /*line-height: 34px;*/
+    color: black;
+    background-color: white;
     padding: 0px 30px 0px 15px;
+    margin-left: 5vw;
 }
 
-.required-field-row{
-    line-height: 1.5;
+.required-fields-container{
+    line-height: 2;
     margin-bottom: 10px;
+}
+
+.instructions-title{
+    font-size: 24px;
+    font-weight: 800;
+}
+
+.upload-instructions-list{
+    margin-top: 0;
+}
+
+.instructions-card h5{
+    margin-bottom: 0;
+}
+
+.prereq-list{
+    margin-top: 5px;
+    font-size: 14px;
+    line-height: 1.5;
 }
 
 
 
 .upload-form-container{
+    color: black;
     display: flex;
-    justify-content: center;
+    /*justify-content: center;*/
     align-items: center;
     width: 45vw;
+    /*border: solid red 2px;*/
 }
 
 .form-content-container{
-    /*margin-right: 10vw;*/
+    margin-left: 5vw;
     margin-bottom: 15vh;
+    /*border: solid 2px orange;*/
 }
 
 .file-input{
     margin-top: 10px;
 }
 
+.file-input::file-selector-button {
+  font-weight: bold;
+  color: dodgerblue;
+  padding: 0.5em;
+  border: thin solid grey;
+  border-radius: 3px;
+    margin-left: 5px;
+    margin-bottom: 3px;
+}
+
+.file-input::file-selector-button:hover{
+    box-shadow: #585858 -1px 1px 3px;
+    font-weight: bolder;
+}
+
 .upload-btn{
     margin-top: 15px;
+    margin-left: 5px;
 }
 
 .message{

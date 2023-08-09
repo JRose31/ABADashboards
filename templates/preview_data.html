@@ -5,6 +5,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
     <link rel="stylesheet" href="{{ url_for("static", filename="css/preview_data.css") }}">
 {% endblock %}
+
+{% block logo_image %}
+<img src="{{ url_for("static", filename="site_images/main_logo_black.png") }}" alt="" id="main-logo">
+{% endblock %}
+
 {% block navbar %}
         <div class="left-navbar">
             <a href="/home"><button class="navbar-buttons">Home</button></a>
@@ -14,6 +19,7 @@
             <a href="/"><button class="navbar-buttons logout-btn">Logout</button></a>
         </div>
 {% endblock %}
+
 {% block content %}
         <div class="preview-options">
             <div class="inner-preview-options">

@@ -117,7 +117,7 @@ def home():
         # data["dashboard_config"] = {"project_name": table_name,
         #                             "fields": col_mapping,
         #                             }
-        return redirect(url_for('active_dashboard', date_range='All-time'))
+        return redirect(url_for('active_dashboard', date_range='all-time'))
 
     user_datasets = UserTables.query.filter_by(user_id=user_info["user_id"]).all()
     if len(user_datasets) > 0:
@@ -219,18 +219,37 @@ def active_dashboard(date_range=None):
             data["dashboard_config"] = {"project_name": table_name,
                                         "fields": col_mapping,
                                         }
-            return redirect(url_for('active_dashboard', date_range='All-time'))
+            return redirect(url_for('active_dashboard', date_range='all-time'))
 
     data = session.get("preview_dataframe")
 
     try:
         session["dashboard_objects"] = renderDashboard(data, date_range=date_range)
-    except ValueError:
+    except ValueError as e:
+        print(str(e))
         flash('No data available for requested date range.')
         session["dashboard_objects"] = renderDashboard(data, date_range="All-time")
     visual_objects = session.get("dashboard_objects")
 
     return render_template('active_dashboard.html', data=data, user=user, objects=visual_objects)
+
+
+@app.route('/active-dashboard/settings-applied', methods=["POST"])
+def dashboard_settings():
+    if request.method == "POST":
+        date_range = request.form.get('date-range')
+        print(date_range)
+        if date_range == 'custom':
+            try:
+                start_date = request.form.get('selected-start-date')
+                end_date = request.form.get('selected-end-date')
+                session["active-dashboard"] = {"filters": {"start date": start_date,
+                                                           "end date": end_date}}
+                print(f'Start: {start_date}\nEnd: {end_date}')
+            except Exception as e:
+                print(e)
+
+    return redirect(url_for('active_dashboard', date_range=date_range))
 
 
 if __name__ == '__main__':

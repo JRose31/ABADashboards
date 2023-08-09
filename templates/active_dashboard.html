@@ -29,10 +29,34 @@
             <button class="action-btn" onclick="showPage('table-page', 'view-table-btn')" id="view-table-btn">View Table</button>
             <button class="action-btn" onclick="showPage('add-record-page', 'add-record-btn')" id="add-record-btn">+</button>
         </div>
-        <button class="setting-btn action-btn">
+        <button class="setting-btn action-btn" onclick="showSettings()">
             <img src="{{ url_for("static", filename="site_images/gear_icon.png") }}" alt="" width="30px">
         </button>
     </div>
+
+    <div id="settings-window">
+        <form method="post" action="/active-dashboard/settings-applied">
+            <h3>Apply Filters</h3>
+            <h4>Date Range:</h4>
+            <select name="date-range" id="settings-date-range" onchange="showDateSelection()">
+                <option value="all-time">All Time</option>
+                <option value="this-year">This Year</option>
+                <option value="this-month">This Month</option>
+                <option value="this-week">This Week</option>
+                <option value="custom">Custom Range</option>
+            </select>
+            <div id="date-range-selectors">
+                <span>From: <input type="date" name="selected-start-date"></span>
+                <span>To: <input type="date" name="selected-end-date"></span>
+            </div>
+            <hr>
+            <div class="settings-action-btns">
+                <button type="submit">Apply</button>
+                <button onclick="hideAlert('settings-window')" type="button">close</button>
+            </div>
+        </form>
+    </div>
+
     <div class="content-container">
         <div class="content-header">
             <span class="nav-dashboard-name">{{data["dashboard_config"]["project_name"]}}</span>
@@ -56,9 +80,9 @@
                         </div>
                     </div>
                     <div class="date-range-btn-container">
-                        <button class="date-range-btn all-time-btn active-date-range"><a href="{{ url_for('active_dashboard', date_range='All-time') }}">All Time</a></button>
-                        <button class="date-range-btn this-month-btn"><a href="{{ url_for('active_dashboard', date_range='Month') }}">This Month</a></button>
-                        <button class="date-range-btn this-week-btn"><a href="{{ url_for('active_dashboard', date_range='Week') }}">This Week</a></button>
+                        <button class="date-range-btn all-time-btn active-date-range"><a href="{{ url_for('active_dashboard', date_range='all-time') }}">All Time</a></button>
+                        <button class="date-range-btn this-month-btn"><a href="{{ url_for('active_dashboard', date_range='this-month') }}">This Month</a></button>
+                        <button class="date-range-btn this-week-btn"><a href="{{ url_for('active_dashboard', date_range='this-week') }}">This Week</a></button>
                     </div>
                 </div>
                 <div class="pie-chart-container make-card">
@@ -240,6 +264,23 @@
     function hideAlert(alert_id){
         let alert_card = document.getElementById(alert_id);
         alert_card.style.display = 'none';
+    }
+
+    function showSettings(){
+        let settings = document.getElementById("settings-window");
+        settings.style.display = 'flex';
+    }
+
+    function showDateSelection(){
+        let date_option = document.getElementById('settings-date-range');
+        console.log(date_option.value);
+        let range_selectors = document.getElementById('date-range-selectors')
+        if(date_option.value==='custom') {
+            range_selectors.style.display = 'flex';
+        }
+        else{
+            range_selectors.style.display = 'none';
+        }
     }
 
 </script>

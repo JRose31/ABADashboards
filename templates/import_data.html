@@ -4,6 +4,10 @@
     <link rel="stylesheet" href="{{ url_for("static", filename="css/import_data.css") }}">
 {% endblock %}
 
+{% block logo_image %}
+<img src="{{ url_for("static", filename="site_images/main_logo_black.png") }}" alt="" id="main-logo">
+{% endblock %}
+
 {% block navbar %}
     <div class="left-navbar">
         <a href="/home"><button class="navbar-buttons">Home</button></a>
@@ -18,46 +22,19 @@
     <div class="instructions-container">
 
         <div class="instructions-card make-card">
-            <h3>Just a couple of prerequisites to get started...</h3>
-            <ul>
-                <li>Data uploaded must contain the <b>required fields<sup>*</sup></b>as listed below.</li>
+            <div class="required-fields-container">
+            <span class="instructions-title">One, Two, Three...Analyze.</span>
+                <ol class="upload-instructions-list">
+                    <li>Upload an excel or csv containing the required fields<sup>*</sup></li>
+                    <li>Name your dashboard and map the required fields</li>
+                    <li>Save and view your dashboard for insights!</li>
+                </ol>
+            </div>
+            <h5><sup>*</sup>Prerequisites</h5>
+            <ul class="prereq-list">
+                <li>Required fields: <b>Date, Sales, Labor (costs), Materials (cost), Total Cost</b></li>
                 <li>Please be sure to <b>remove all styling,</b> additional headers, etc.</li>
             </ul>
-            <div class="required-fields-container">
-            <h4>Required fields:</h4>
-                <ul>
-                    <li class="required-field-row"><b>Date </b>(<em>field details</em>)
-                        <ul>
-                            <li><em>format instructions</em></li>
-                        </ul>
-                    </li>
-
-                    <li class="required-field-row"><b>Sales</b>(<em>field details</em>)
-                        <ul>
-                            <li><em>format instructions</em></li>
-                        </ul>
-                    </li>
-
-                    <li class="required-field-row"><b>Costs</b>(<em>field details</em>)
-                        <ul>
-                            <li><em>format instructions</em></li>
-                        </ul>
-                    </li>
-
-                    <li class="required-field-row"><b>Labor</b>(<em>field details</em>)
-                        <ul>
-                            <li><em>format instructions</em></li>
-                        </ul>
-                    </li>
-
-                    <li class="required-field-row"><b>Materials</b>(<em>field details</em>)
-                        <ul>
-                            <li><em>format instructions</em></li>
-                        </ul>
-                    </li>
-
-                </ul>
-            </div>
         </div>
 
     </div>
